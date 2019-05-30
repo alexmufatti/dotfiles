@@ -32,12 +32,12 @@ set hlsearch
 set so=7
 
 
-set tabstop=4
-set softtabstop=0
+set tabstop=2
+set softtabstop=2
 set shiftwidth=4
-"unset expandtab
+set expandtab
 set incsearch
-
+set noshowmode
 augroup filetypedetect
   " Mail
   autocmd BufRead,BufNewFile *mutt-*              setfiletype mail
@@ -54,9 +54,32 @@ autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 
+" pandoc , markdown
+command! -nargs=* RunSilent
+      \ | execute ':silent !'.'<args>'
+      \ | execute ':redraw!'
+nmap <Leader>pc :RunSilent pandoc -o /tmp/vim-pandoc-out.pdf %<CR>
+nmap <Leader>pp :RunSilent open /tmp/vim-pandoc-out.pdf<CR>
+
 set number
 highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
 
-colorscheme desertEx
 
-color desertEx
+" Specify a directory for plugins
+" - For Neovim: ~/.local/share/nvim/plugged
+" - Avoid using standard Vim directory names like 'plugin'
+call plug#begin('~/.vim/plugged')
+
+" On-demand loading
+
+Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'scrooloose/nerdtree'
+Plug '/usr/local/opt/fzf'
+Plug 'itchyny/lightline.vim'
+Plug 'junegunn/fzf.vim'
+Plug 'tpope/vim-surround'
+Plug 'editorconfig/editorconfig-vim'
+
+" Initialize plugin system
+call plug#end()
+

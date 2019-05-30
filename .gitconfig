@@ -1,0 +1,3 @@
+[core]
+	excludesfile = /home/mua/.gitignore_global
+	editor = vim
