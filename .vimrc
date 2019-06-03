@@ -40,7 +40,7 @@ set incsearch
 set noshowmode
 augroup filetypedetect
   " Mail
-  autocmd BufRead,BufNewFile *mutt-*              setfiletype mail
+  autocmd BufRead,BufNewFile *mutt-* setfiletype mail
 augroup END
 
 set ruler
