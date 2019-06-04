@@ -41,27 +41,6 @@ XTerm*utf8 :              1
 XTerm*faceName:      terminus:pixelsize=9
 
 
-!URxvt
-
-URxvt.saveLines: 8192
-URxvt.cursorBlink:        true 
-URxvt.foreground:    #FFFFFF
-URxvt.background:    #000000
-URxvt.scrollBar: false
-URxvt.title: URXVT
-URxvt.geometry:         100x25
-URxvt.perl-ext-common: default,matcher
-URxvt.urlLauncher: epiphany
-URxvt.matcher.button: 1
-URxvt.colorUL:            #86a2be
-URxvt.internalBorder:     0
-URxvt.underlineColor:     #86a2be
-URxvt.scrollstyle:      plain
-URxvt.font: xft:terminus
-URxvt.termName: rxvt
-URxvt*iconFile: /usr/share/icons/gnome/22x22/apps/terminal.png
-URxvt.loginShell: true
-
 !Xcalc
 
 *Form.background: gray40
