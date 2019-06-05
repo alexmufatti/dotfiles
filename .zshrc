@@ -93,3 +93,4 @@ alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 source /home/mua/.zshrc_private
 
 neofetch
+source /usr/share/nvm/init-nvm.sh
