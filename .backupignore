@@ -357,3 +357,6 @@ Downloads
 Documents/Biblioteca\ di\ calibre
 tmp/*
 .local/share/JetBrains/Toolbox/apps/*
+.nvm
+.nuget
+.thunderbird

@@ -1,0 +1,25 @@
+(if
+    (is (application_name) "Thunderbird")
+    (begin
+        (set_workspace 4)
+    )
+)
+
+(if
+    (is (application_name) "Todoist")
+    (begin
+        (set_workspace 4)
+    )
+)
+(if
+    (is (window_class) "Slack")
+    (begin
+        (set_workspace 4)
+    )
+)
+(if
+    (is (application_name) "Skype")
+    (begin
+        (set_workspace 4)
+    )
+)
