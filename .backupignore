@@ -350,11 +350,11 @@ ZeroBundle/ZeroNet/data
 
 Projects
 Vms
-shared\ VM
+shared VM
 SynologyDrive
 .SynologyDrive
 Downloads
-Documents/Biblioteca\ di\ calibre
+Documents/Biblioteca di calibre
 tmp/*
 .local/share/JetBrains/Toolbox/apps/*
 .nvm

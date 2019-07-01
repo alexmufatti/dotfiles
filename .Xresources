@@ -22,7 +22,6 @@ XTerm*selectToClipboard: true
 *pointerColorBackground:          #2B2C2B
 *pointerColorForeground:          #16A085
 
-Xcursor.theme: breeze_cursors
 Xcursor.size:                     0
 
 URxvt.font:                       xft:Inconsolata Nerd Font Mono:size=14:minspace=false:minspace=False, xft:DejaVu Sans:pixelsize=18
