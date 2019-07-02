@@ -1,0 +1,12 @@
+[Added Associations]
+text/markdown=typora.desktop;okularApplication_md.desktop;org.kde.kate.desktop;okularApplication_txt.desktop;sublime_text_3.desktop;vim.desktop;org.kde.calligrawords_ascii.desktop;boostnote.desktop;
+
+[Default Applications]
+application/x-synology-drive-doc=synology-drive-open-file.desktop
+application/x-synology-drive-sheet=synology-drive-open-file.desktop
+application/x-synology-drive-slides=synology-drive-open-file.desktop
+text/html=userapp-Pale Moon-N5M53Z.desktop
+text/markdown=typora.desktop;
+x-scheme-handler/jetbrains=jetbrains-toolbox.desktop
+x-scheme-handler/mailto=thunderbird.desktop;
+x-scheme-handler/slack=slack.desktop
