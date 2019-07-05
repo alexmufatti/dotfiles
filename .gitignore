@@ -1,0 +1,17 @@
+.IntelliJ*
+.Rider*
+.Synology*
+JetBrains
+NuGet
+.cache/google-chrome
+.cache/mesa_shader_cache
+.cache/mozilla
+.cache/spotify
+.cache/thunderbird
+.config/**/[cC]ache
+**/[cC]aches
+.mail
+.minecraft
+.config/google-chrome
+.nuget
+.nvm
