@@ -17,7 +17,6 @@ mount -t cifs //rico/home "$TMP" -o credentials=/root/.ricopass,uid=$(id -u),gid
 
 if [ "$1" = "full" ] || [ ! -f $TMP/backup/linux/current/$SNAR ]
   then
-      read
   echo "Removing old backups"
   rm -rf $TMP/backup/linux/old/*
   mv $TMP/backup/linux/current/* $TMP/backup/linux/old/

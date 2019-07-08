@@ -4,7 +4,6 @@
 # Set mod key (Mod1=<Alt>, Mod4=<Super>)
 set $mod Mod4
 
-
 # Color palette used for the terminal ( ~/.Xresources file )
 # Colors are gathered based on the documentation:
 # https://i3wm.org/docs/userguide.html#xresources
@@ -108,6 +107,16 @@ bindsym $mod+Print --release exec --no-startup-id i3-scrot -w
 bindsym $mod+Shift+Print --release exec --no-startup-id i3-scrot -s
 bindsym $mod+Shift+h exec xdg-open /usr/share/doc/manjaro/i3_help.pdf
 bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
+bindsym $mod+e exec --no-startup-id ~/.scripts/dmenuunicode
+bindsym $mod+c exec --no-startup-id ~/.scripts/ddspawn dropdowncalc -f mono:pixelsize=24
+
+# media player controls
+
+bindsym $mod+p exec --no-startup-id playerctl play-pause
+bindcode $mod+34 exec --no-startup-id playerctl next
+bindsym $mod+o exec --no-startup-id playerctl previous
+
+ 
 
 # focus_follows_mouse no
 
@@ -232,6 +241,15 @@ for_window [class="Timeset-gui"] floating enable border normal
 for_window [class="(?i)virtualbox"] floating enable border normal
 for_window [class="Xfburn"] floating enable
 
+# General dropdown window traits. The order can matter.
+for_window [title="^dropdowncalc$"] floating enable
+for_window [title="^dropdowncalc$"] move scratchpad
+for_window [title="^dropdowncalc$"] sticky enable
+for_window [title="^dropdowncalc$"] scratchpad show
+for_window [title="^dropdowncalc$"] resize set 800 300
+for_window [title="^dropdowncalc$"] border pixel 2
+for_window [title="^dropdowncalc$"] move position center
+
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
 
@@ -285,6 +303,7 @@ mode "$layout" {
 bindsym $mod+9 exec --no-startup-id blurlock
 
 # Autostart applications
+
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id nitrogen --restore; sleep 1; compton -b
 exec --no-startup-id nm-applet
@@ -312,7 +331,7 @@ bar {
 	position top
 
 ## please set your primary output first. Example: 'xrandr --output eDP1 --primary'
-#	tray_output primary
+  tray_output primary
 #	tray_output eDP1
 
 	bindsym button4 nop

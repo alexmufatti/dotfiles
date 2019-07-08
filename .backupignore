@@ -360,3 +360,5 @@ tmp/*
 .nvm
 .nuget
 .thunderbird
+.Intelli*
+.Rider*
