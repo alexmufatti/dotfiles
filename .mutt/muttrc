@@ -2,7 +2,7 @@ set sidebar_visible
 set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"
 set mail_check_stats
 set from = "me@alexmufatti.it"
-set realname = "Mufatti Alex"
+set realname='Alex Mufatti'
 
 set header_cache =~/.mutt/cache/headers
 set message_cachedir =~/.mutt/cache/bodies
@@ -29,7 +29,6 @@ set query_command= "khard email --parsable %s"
 bind editor <Tab> complete-query
 bind editor ^T    complete
 
-set realname='Alex Mufatti'
 set sendmail="/home/mua/.scripts/msmtp-enqueue.sh"
 
 set date_format="%m/%d %T"
@@ -105,5 +104,5 @@ set reverse_name                     # reply as whomever it was to
 set include                          # include message in replies
 set forward_quote                    # include message in forwards
 
-
+color index red black "~C alex\.mufatti@gmail\.com"
 
