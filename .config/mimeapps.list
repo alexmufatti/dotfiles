@@ -22,6 +22,7 @@ application/x-synology-drive-sheet=synology-drive-open-file.desktop
 application/x-synology-drive-slides=synology-drive-open-file.desktop
 x-scheme-handler/about=google-chrome.desktop
 x-scheme-handler/unknown=google-chrome.desktop
+x-scheme-handler/webcal=google-chrome.desktop
 
 [Added Associations]
 image/jpeg=viewnior.desktop;gpicview.desktop;

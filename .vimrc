@@ -65,6 +65,8 @@ nmap <Leader>pp :RunSilent open /tmp/vim-pandoc-out.pdf<CR>
 set number
 highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
 
+map <F5> :setlocal spell! spelllang=it_it<CR>
+map <F6> :setlocal spell! spelllang=en_us<CR>
 
 " Specify a directory for plugins
 " - For Neovim: ~/.local/share/nvim/plugged

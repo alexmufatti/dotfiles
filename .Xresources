@@ -21,7 +21,7 @@ URxvt.keysym.Control-Up:          \033[1;5A
 URxvt.keysym.Shift-Control-Up:    \033[1;6A
 URxvt.keysym.Control-Down:        \033[1;5B
 URxvt.keysym.Shift-Control-Down:  \033[1;6B
-URxvt.perl-ext-common:      default,clipboard,url-select,keyboard-select,tabbed,resize-font
+URxvt.perl-ext-common:      default,clipboard,url-select,keyboard-select,tabbed,resize-font,matcher
 URxvt.url-select.launcher:  /usr/bin/xdg-open
 URxvt.url-select.underline: true
 URvxt.url-select.button: 2
@@ -70,3 +70,4 @@ URxvt*geometry:           100x25
 *.color15:      #fdf6e3
 
 URxvt: letterSpace:0
+URxvt.background: [90]#002b36

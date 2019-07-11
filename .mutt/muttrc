@@ -25,6 +25,9 @@ macro index M "<save-message>?<toggle-mailboxes>" "move a message to a mailbox"
 
 macro compose A "<attach-message>?<toggle-mailboxes>" "attach message(s) to this message"
 
+macro index,pager \cb "<pipe-message> w3m -I "utf-8" -T text/html | urlscan<Enter>"
+macro attach,compose \cb "<pipe-entry> w3m -I "utf-8" -T text/html | urlscan<Enter>"
+
 set query_command= "khard email --parsable %s"
 bind editor <Tab> complete-query
 bind editor ^T    complete
