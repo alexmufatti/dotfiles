@@ -85,7 +85,6 @@ Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-surround'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'vimwiki/vimwiki'
 Plug 'tpope/vim-fugitive'
 
 " Initialize plugin system

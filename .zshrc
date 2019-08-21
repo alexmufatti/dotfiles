@@ -1,6 +1,11 @@
 # Path to your oh-my-zsh installation.
 export ZSH=/home/mua/.oh-my-zsh
 
+if [[ $TERM == xterm-termite ]]; then
+  . /etc/profile.d/vte.sh
+  __vte_osc7
+fi
+
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
@@ -94,3 +99,8 @@ source /home/mua/.zshrc_private
 
 neofetch
 source /usr/share/nvm/init-nvm.sh
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"

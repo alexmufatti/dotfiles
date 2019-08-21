@@ -1,6 +1,6 @@
 Xcursor.size:                     0
 
-URxvt.font:                       xft:Inconsolata Nerd Font Mono:size=14:minspace=false:minspace=False, xft:DejaVu Sans:pixelsize=18
+URxvt.font:                       xft:Inconsolata Nerd Font Mono:size=14:minspace=false:minspace=False,xft:Noto Emoji, xft:DejaVu Sans:pixelsize=18
 
 URxvt.depth:                      32
 URxvt*scrollBar:                  false

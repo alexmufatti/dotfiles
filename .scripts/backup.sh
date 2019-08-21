@@ -1,4 +1,5 @@
 #!/bin/bash
+
 LANG=en-US
 TMP=$(mktemp -d)
 DATETIME=$(LANG=en-US date +%F_%X)
@@ -10,6 +11,11 @@ FOLDER=/home/mua
 if [ "$EUID" -ne 0 ]
   then echo "Please run as root"
   exit
+fi
+
+if [[ $(arp 192.168.252.254) != *"00:11:32:3f:8c:53"* ]]
+  then echo "Not in out home network"
+  exit 
 fi
 
 echo "Mounting share"
