@@ -10,6 +10,6 @@ x-scheme-handler/slack=slack.desktop
 x-scheme-handler/postman=Postman.desktop
 
 [Added Associations]
-application/pdf=okularApplication_pdf.desktop;
+application/pdf=libreoffice-draw.desktop;okularApplication_pdf.desktop;
 text/plain=sublime_text_3.desktop;
 application/x-mswinurl=sublime_text_3.desktop;
