@@ -15,7 +15,7 @@ off
 output eDP1
 off
 output DP1-1
-mode 2560x1440
+mode 1920x1080
 pos 0x0
 primary
-rate 59.95
+rate 60.00

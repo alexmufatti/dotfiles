@@ -4,7 +4,7 @@
 		"floating": "auto_off",
 		"fullscreen_mode": 0,
 		"layout": "splith",
-		"percent": 0.5,
+		"percent": 0.333333333333333,
 		"type": "con",
 		"nodes": [
 		{
@@ -14,14 +14,14 @@
 			"geometry": {
 				"height": 1024,
 				"width": 617,
-				"x": 1289,
-				"y": 42
+				"x": 0,
+				"y": 0
 			},
-			"name": "Slack - Intré",
+			"name": "Slack | nando | Intré",
 			"percent": 0.5,
 			"swallows": [
 			{
-				"class": "slack"
+				"class": "^Slack$"
 			}
 			],
 			"type": "con"
@@ -38,16 +38,16 @@
 				"current_border_width": 2,
 				"floating": "auto_off",
 				"geometry": {
-					"height": 600,
-					"width": 800,
-					"x": 880,
-					"y": 420
+					"height": 1024,
+					"width": 937,
+					"x": 0,
+					"y": 0
 				},
 				"name": "Todoist",
 				"percent": 0.5,
 				"swallows": [
 				{
-          "name": "Todoist"
+          "title": "^Todoist$"
 				}
 				],
 				"type": "con"
@@ -57,16 +57,16 @@
 				"current_border_width": 2,
 				"floating": "auto_off",
 				"geometry": {
-					"height": 1024,
-					"width": 617,
-					"x": 14,
-					"y": 42
+					"height": 1052,
+					"width": 1920,
+					"x": 0,
+					"y": 0
 				},
 				"name": "Skype",
 				"percent": 0.5,
 				"swallows": [
 				{
-					"class": "skype"
+					"class": "^Skype$"
 				}
 				],
 				"type": "con"
