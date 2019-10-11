@@ -400,8 +400,6 @@ globalkeys = my_table.join(
               {description = "increase master width factor", group = "layout"}),
     awful.key({ altkey, modkey   }, "Left",     function () awful.tag.incmwfact(-0.05)          end,
               {description = "decrease master width factor", group = "layout"}),
-    awful.key({ modkey,           }, "space", function () awful.layout.inc( 1)                end,
-              {description = "select next", group = "layout"}),
 
     awful.key({ modkey, "Control" }, "n",
               function ()
@@ -608,6 +606,9 @@ awful.rules.rules = {
     { rule = { class = "Slack" },
           properties = { screen = 1, tag = awful.util.tagnames[8] } },
     
+    { rule = { class = "spotify" },
+          properties = { screen = 1, tag = awful.util.tagnames[7] } },
+    
     -- Floating clients.
     { rule_any = {
         instance = {
@@ -643,8 +644,22 @@ awful.rules.rules = {
           "Preferences",
           "setup",
         }
-      }, properties = { floating = true }},
-
+      }, properties = { floating = true }
+    },
+    { rule = {
+      class = "jetbrains-.*",
+      instance = "sun-awt-X11-XWindowPeer",
+      name = "win.*"
+    },
+    properties = {
+      floating = true,
+      focus = true,
+      focusable = false,
+      ontop = true,
+      placement = awful.placement.restore,
+      buttons = {}
+    }
+  }
 }
 -- }}}
 

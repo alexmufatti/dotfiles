@@ -47,7 +47,7 @@
 				"percent": 0.5,
 				"swallows": [
 				{
-          "title": "^Todoist$"
+          "class": "^Thunderbird$"
 				}
 				],
 				"type": "con"

@@ -4,47 +4,14 @@
 # Set mod key (Mod1=<Alt>, Mod4=<Super>)
 set $mod Mod4
 
-# Color palette used for the terminal ( ~/.Xresources file )
-# Colors are gathered based on the documentation:
-# https://i3wm.org/docs/userguide.html#xresources
-# Change the variable name at the place you want to match the color
-# of your terminal like this:
-# [example]
-# If you want your bar to have the same background color as your 
-# terminal background change the line 362 from:
-# background #14191D
-# to:
-# background $term_background
-# Same logic applied to everything else.
-set_from_resource $term_background background
-set_from_resource $term_foreground foreground
-set_from_resource $term_color0     color0
-set_from_resource $term_color1     color1
-set_from_resource $term_color2     color2
-set_from_resource $term_color3     color3
-set_from_resource $term_color4     color4
-set_from_resource $term_color5     color5
-set_from_resource $term_color6     color6
-set_from_resource $term_color7     color7
-set_from_resource $term_color8     color8
-set_from_resource $term_color9     color9
-set_from_resource $term_color10    color10
-set_from_resource $term_color11    color11
-set_from_resource $term_color12    color12
-set_from_resource $term_color13    color13
-set_from_resource $term_color14    color14
-set_from_resource $term_color15    color15
-
 set $bg-color 	         #2f343f
 set $inactive-bg-color   #2f343f
 set $text-color          #f3f4f5
 set $inactive-text-color #676E7D
 set $urgent-bg-color     #E53935
-set $border-active       #A4C2F4
+set $border-active       #FFC400
 set $border-urgent       #E53935
-
-# set default desktop layout (default is tiling)
-# workspace_layout tabbed <stacking|tabbed>
+set $indicator           #06d106
 
 # Configure border style <normal|1pixel|pixel xx|none|pixel>
 new_window pixel 2
@@ -53,89 +20,68 @@ new_float pixel 2
 # Hide borders
 hide_edge_borders none
 
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+font pango:UbuntuMono Nerd Font 11
+
+# Use Mouse+$mod to drag floating windows
+floating_modifier $mod
+
 # change borders
 bindsym $mod+u border none
 bindsym $mod+y border pixel 2
 bindsym $mod+n border normal
 
-# Font for window titles. Will also be used by the bar unless a different font
-# is used in the bar {} block below.
-# font xft:URWGothic-Book 11
-font pango:Noto 13
-# font pango:System San Francisco Display 13
-# Use Mouse+$mod to drag floating windows
-floating_modifier $mod
-
 # start a terminal
-bindsym $mod+Return exec termite
+bindsym $mod+Return exec i3-sensible-terminal
 
 # kill focused window
-bindsym $mod+Shift+q kill
+bindsym $mod+q kill
 
 # start program launcher
-bindsym $mod+d exec --no-startup-id ~/.scripts/dmenu_recency
-bindsym $mod+space exec rofi -show drun -eh 2 -opacity 85 -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd" -font "System San Francisco Display 18" 
-
-# launch categorized menu
-# bindsym $mod+z exec --no-startup-id morc_menu
-
-################################################################################################
-## sound-section - DO NOT EDIT if you wish to automatically upgrade Alsa -> Pulseaudio later! ##
-################################################################################################
-
-#exec --no-startup-id volumeicon
-#bindsym $mod+Ctrl+m exec termite -e 'alsamixer'
-#exec --no-startup-id pulseaudio
-exec --no-startup-id pa-applet
-bindsym $mod+Ctrl+m exec pavucontrol
+bindsym $mod+shift+space exec --no-startup-id dmenu_run -i  -nb "$bg-color" -nf "$text-color" -sb "$text-color" -sf "$bg-color" -fn 'UbuntuMono Nerd Font:pixelsize=20'
+bindsym $mod+space exec rofi -show drun -eh 2 -opacity 85 -bw 0 -font "UbuntuMono Nerd Font 18" 
+bindsym $mod+ctrl+space exec --no-startup-id xfce4-appfinder --disable-server
+bindsym $mod+ctrl+c exec --no-startup-id ./.dmenu/dmenu-edit-configs.sh
 
 ################################################################################################
-
-# Screen brightness controls
-# bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; notify-send 'brightness up'"
-# bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness down'"
 
 # Start Applications
-# bindsym $mod+Ctrl+b exec termite -e 'bmenu'
+bindsym $mod+Ctrl+m exec pavucontrol
 bindsym $mod+F2 exec firefox
 bindsym $mod+Shift+F2 exec google-chrome-stable
 bindsym $mod+F3 exec thunar
-bindsym $mod+Shift+F3 exec termite -e 'ranger'
-# bindsym $mod+Shift+F3 exec gksu pcmanfm
+bindsym $mod+Shift+F3 exec i3-sensible-terminal ranger
 bindsym $mod+F5 exec spotify
-# bindsym $mod+Ctrl+d --release exec "killall dunst; exec notify-send 'restart dunst'"
+bindsym $mod+Ctrl+d --release exec "killall dunst; exec notify-send 'restart dunst'"
+
+
+# Print screen
 bindsym Print exec --no-startup-id i3-scrot
-bindsym $mod+Print --release exec --no-startup-id i3-scrot -w
-bindsym $mod+Shift+Print --release exec --no-startup-id i3-scrot -s
-bindsym $mod+Shift+h exec xdg-open /usr/share/doc/manjaro/i3_help.pdf
-bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
+bindsym shift+Print --release exec --no-startup-id maim --format=png -s /dev/stdout | xclip -selection clipboard -t image/png -i
+bindsym $mod+Print --release exec --no-startup-id i3-scrot -s
+
 bindsym $mod+e exec --no-startup-id ~/.scripts/dmenuunicode
 bindsym $mod+c exec --no-startup-id ~/.scripts/ddspawn dropdowncalc -f mono:pixelsize=24
 
-bindsym $mod+Ctrl+c exec --no-startup-id termite -e 'bash -c "vim ~/.config/i3/config"'
 # media player controls
-
 bindsym $mod+p exec --no-startup-id playerctl play-pause
 bindcode $mod+34 exec --no-startup-id playerctl next
 bindsym $mod+o exec --no-startup-id playerctl previous
 
- 
-
-# focus_follows_mouse no
-
-# alternatively, you can use the cursor keys:
+# move focus
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
-# alternatively, you can use the cursor keys:
+# move container
 bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
-# alternatively, you can use the cursor keys:
+# move workspace to monitor
 bindsym $mod+Shift+Ctrl+Left move workspace to output left
 bindsym $mod+Shift+Ctrl+Down move  workspace to output down
 bindsym $mod+Shift+Ctrl+Up move  workspace to output up
@@ -143,19 +89,16 @@ bindsym $mod+Shift+Ctrl+Right move  workspace to output right
 
 # workspace back and forth (with/without active container)
 workspace_auto_back_and_forth yes
-bindsym $mod+b workspace back_and_forth
-bindsym $mod+Shift+b move container to workspace back_and_forth; workspace back_and_forth
 
 # split orientation
 bindsym $mod+h split h;exec notify-send 'tile horizontally'
 bindsym $mod+v split v;exec notify-send 'tile vertically'
-bindsym $mod+q split toggle
 
 # toggle fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
 
 # toggle tiling / floating
-bindsym $mod+Shift+t floating toggle
+bindsym $mod+Shift+f floating toggle
 
 # change focus between tiling / floating windows
 bindsym $mod+t focus mode_toggle
@@ -166,10 +109,6 @@ bindsym $mod+Shift+s sticky toggle
 # focus the parent container
 bindsym $mod+a focus parent
 
-#navigate workspaces next / previous
-bindsym $mod+Ctrl+Right workspace next
-bindsym $mod+Ctrl+Left workspace prev
-
 # Workspace names
 # to display names or symbols instead of plain workspace numbers you can use
 # something like: set $ws1 1:mail
@@ -178,10 +117,10 @@ set $ws1 1
 set $ws2 2
 set $ws3 3
 set $ws4 4
-set $ws5 5:5 VM
-set $ws6 6:6 ✔
-set $ws7 7:7 📬
-set $ws8 8:8 🎵
+set $ws5 5:5
+set $ws6 6:6
+set $ws7 7:7 CHAT
+set $ws8 8:8 MUSIC
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -214,23 +153,21 @@ bindsym $mod+Shift+7 move container to workspace $ws7; workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
 
 # Open applications on specific workspaces
-assign [class="outlook-nativefier-89ddb9"] $ws7
-assign [class="Slack"] $ws6
-assign [class="vmware"] $ws5
-assign [class="VirtualBox Machine"] $ws5
-assign [class="Skype"] $ws6
+assign [class="Slack"] $ws7
+assign [class="Skype"] $ws7
 assign [class="spotify"] $ws8
-assign [title="Todoist"] $ws6
-assign [title="mutt"] $ws7
+assign [class="mutt"] $ws7
+assign [class="Thunderbird"] $ws7
 for_window [class="Spotify"] move to workspace $ws8
 
 # Open specific applications in floating mode
-for_window [title="alsamixer"] floating enable border pixel 1
-for_window [class="zoom"] floating enable border pixel 1
+for_window [title="alsamixer"] floating enable border pixel 2
+for_window [class="Xfce4-appfinder"] floating enable border pixel 2
+for_window [class="zoom"] floating enable border pixel 2
 for_window [class="calamares"] floating enable border normal
 for_window [class="Clipgrab"] floating enable
 for_window [title="File Transfer*"] floating enable
-for_window [class="Galculator"] floating enable border pixel 1
+for_window [class="Galculator"] floating enable border pixel 2
 for_window [class="GParted"] floating enable border normal
 for_window [title="i3_help"] floating enable sticky enable border normal
 for_window [class="Lightdm-settings"] floating enable
@@ -254,25 +191,19 @@ for_window [class="(?i)virtualbox"] floating enable border normal
 for_window [class="Xfburn"] floating enable
 
 # General dropdown window traits. The order can matter.
-for_window [title="dropdowncalc$"] floating enable
-for_window [title="dropdowncalc$"] move scratchpad
-for_window [title="dropdowncalc$"] sticky enable
-for_window [title="dropdowncalc$"] scratchpad show
-for_window [title="dropdowncalc$"] resize set 800 300
-for_window [title="dropdowncalc$"] border pixel 2
-for_window [title="dropdowncalc$"] move position center
-
-# switch to workspace with urgent window automatically
-for_window [urgent=latest] focus
+for_window [title="^dropdown"] floating enable
+for_window [title="^dropdown"] move scratchpad
+for_window [title="^dropdown"] sticky enable
+for_window [title="^dropdown"] scratchpad show
+for_window [title="^dropdown"] resize set 800 300
+for_window [title="^dropdown"] border pixel 2
+for_window [title="^dropdown"] move position center
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
 
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
-
-# exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # Set shut down, restart and locking features
 bindsym $mod+0 mode "$mode_system"
@@ -291,13 +222,13 @@ mode "$mode_system" {
     bindsym Escape mode "default"
 }
 
+# Resize window (you can also use the mouse for that)
 bindsym $mod+Mod1+Left resize shrink width 5 px or 5 ppt
 bindsym $mod+Mod1+Down resize grow height 5 px or 5 ppt
 bindsym $mod+Mod1+Up resize shrink height 5 px or 5 ppt
 bindsym $mod+Mod1+Right resize grow width 5 px or 5 ppt
 
-
-# Resize window (you can also use the mouse for that)
+# load layout
 bindsym $mod+l mode "$layout"
 set $layout (c)ommunication
 mode "$layout" {
@@ -310,85 +241,38 @@ bindsym $mod+9 exec --no-startup-id ~/.scripts/blurlock
 
 # Autostart applications
 
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id nitrogen --restore; sleep 1; compton -b
 exec --no-startup-id nm-applet
 exec --no-startup-id xfce4-power-manager
-# exec --no-startup-id pamac-tray
 exec --no-startup-id clipit
 exec --no-startup-id blueman-applet
-# exec --no-startup-id thunderbird
 exec --no-startup-id slack
 exec --no-startup-id skypeforlinux
 exec --no-startup-id synology-drive
 exec --no-startup-id autokey-gtk
-exec --no-startup-id termite -e 'mutt'
-# exec --no-startup-id firefox -no-remote -P "Outlook"
-# exec --no-startup-id ~/.scripts/start_outlook.sh
-# exec_always --no-startup-id sbxkb
-exec --no-startup-id ~/bin/start_conky_maia.sh
-# exec --no-startup-id start_conky_green
+exec --no-startup-id unclutter --exclude-root
+exec --no-startup-id thunderbird
 exec --no-startup-id xautolock -time 10 -locker ~/.scripts/blurlock
-# exec_always --no-startup-id fix_xcursor
 exec --no-startup-id autorandr --change
-#exec --no-startup-id ~/.scripts/start_todoist.sh
-#exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-
-# Start i3bar to display a workspace bar (plus the system information i3status if available)
-
-bar {
-	i3bar_command i3bar
-	status_command i3blocks
-	position top
-
- tray_output primary
-
-  bindsym button4 nop
-  bindsym button5 nop
-	strip_workspace_numbers yes
-
-  colors {
-    background $bg-color
-    statusline #F9FAF9
-    separator  #757575
-
-    focused_workspace  $bg-color $bg-color $text-color
-    active_workspace   $bg-color $bg-color $text-color
-    inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
-    binding_mode       #16a085 #2C2C2C #F9FAF9
-    urgent_workspace   $bg-color $bg-color $urgent-bg-color
-  }
-}
-
-# hide/unhide i3status bar
-bindsym $mod+m bar mode toggle
+exec --no-startup-id pa-applet
+exec --no-startup-id setxkbmap -layout "us,it" -variant "altgr-intl,"
 
 client.background       #2B2C2B
 
 
-client.focused          $border-active     $bg-color          $text-color          #00ff00  $border-active
-client.unfocused        $inactive-bg-color $inactive-bg-color $inactive-text-color #00ff00  $inactive-bg-color
-client.focused_inactive $inactive-bg-color $inactive-bg-color $inactive-text-color #00ff00  $inactive-bg-color
-client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color         #00ff00 $urgent-bg-color
+client.focused          $border-active     $bg-color          $text-color          $indicator  $border-active
+client.unfocused        $inactive-bg-color $inactive-bg-color $inactive-text-color $indicator  $inactive-bg-color
+client.focused_inactive $inactive-bg-color $inactive-bg-color $inactive-text-color $indicator  $inactive-bg-color
+client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color         $indicator $urgent-bg-color
 #############################
 ### settings for i3-gaps: ###
 #############################
 
 # Set inner/outer gaps
-gaps inner 14
-gaps outer -2
-
-# Additionally, you can issue commands with the following syntax. This is useful to bind keys to changing the gap size.
-# gaps inner|outer current|all set|plus|minus <px>
-# gaps inner all set 10
-# gaps outer all plus 5
-
-# Smart gaps (gaps used if only more than one container on the workspace)
-smart_gaps on
-
-# Smart borders (draw borders around container only if it is not the only container on this workspace) 
-# on|no_gaps (on=always activate and no_gaps=only activate if the gap size to the edge of the screen is 0)
-smart_borders no_gaps
+gaps inner 10
+gaps outer -5
 
 # Press $mod+Shift+g to enter the gap mode. Choose o or i for modifying outer/inner gaps. Press one of + / - (in-/decrement for current workspace) or 0 (remove gaps for current workspace). If you also press Shift with these keys, the change will be global for all workspaces.
 set $mode_gaps Gaps: (o) outer, (i) inner
