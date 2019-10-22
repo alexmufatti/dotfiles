@@ -28,6 +28,11 @@ command=/usr/lib/i3blocks/$BLOCK_NAME/$BLOCK_NAME
 separator_block_width=15
 markup=none
 
+
+[MON]
+command=$HOME/.scripts/montalbetti.sh
+interval=3600
+
 [weather]
 command=curl -Ss 'https://wttr.in?0&T&Q' | cut -c 16- | head -2 | xargs echo
 interval=3600
@@ -38,15 +43,16 @@ color=#A4C2F4
 # If the instance is not specified, use the interface used for default route.
 # The address can be forced to IPv4 or IPv6 with -4 or -6 switches.
 [iface]
-#instance=wlan0
+label=🌐
 color=#00FF00
 interval=10
 separator=false
 
-#[essid]
-#command=/sbin/iwconfig wlp2s0 | perl -n -e'/ESSID:"(.*?)"/ && print $1'
-#interval=60
-#separator=true
+[essid]
+command=iwgetid -r
+interval=60
+color=#00FF00
+separator=true
 
 #[bandwidth]
 #instance=eth0
@@ -65,7 +71,8 @@ separator=false
 [load_average]
 interval=10
 label=💻
-
+separator=false
+color=#dede00
 # Battery indicator
 #
 # The battery instance defaults to 0.
@@ -99,6 +106,7 @@ interval=persist
 command=date '+%Y-%m-%d %H:%M'
 interval=5
 label=
+color=#a6a6a6
 
 # Generic media player support
 #

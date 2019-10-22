@@ -4,6 +4,11 @@ application/x-synology-drive-sheet=synology-drive-open-file.desktop
 application/x-synology-drive-slides=synology-drive-open-file.desktop
 x-scheme-handler/postman=Postman.desktop
 x-scheme-handler/jetbrains=jetbrains-toolbox.desktop
+x-scheme-handler/mailto=userapp-Thunderbird-HUK29Z.desktop
+message/rfc822=userapp-Thunderbird-HUK29Z.desktop
 
 [Added Associations]
 application/pdf=org.gnome.Evince.desktop;
+image/png=firefox.desktop;
+x-scheme-handler/mailto=userapp-Thunderbird-HUK29Z.desktop;
+message/rfc822=userapp-Thunderbird-HUK29Z.desktop;
