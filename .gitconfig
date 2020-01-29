@@ -2,3 +2,7 @@
 	excludesfile = /home/mua/.gitignore_global
 	editor = vim
 	autocrlf = input
+[user]
+	email = 
+[credential]
+	helper = store

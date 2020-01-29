@@ -95,6 +95,7 @@ export PATH="/usr/local/sbin:$PATH"
 unalias t
 
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias jrnl="$HOME/bin/writer.sh"
 
 source /home/mua/.zshrc_private
 

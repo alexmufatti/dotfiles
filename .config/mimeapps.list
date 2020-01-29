@@ -1,14 +1,17 @@
+[Added Associations]
+application/pdf=org.gnome.Evince.desktop;
+image/png=firefox.desktop;
+message/rfc822=userapp-Thunderbird-HUK29Z.desktop;userapp-Thunderbird-T8MWA0.desktop;
+x-scheme-handler/mailto=userapp-Thunderbird-HUK29Z.desktop;thunderbird.desktop;userapp-Evolution-JWP2A0.desktop;org.gnome.Evolution.desktop;userapp-Thunderbird-T8MWA0.desktop;
+
 [Default Applications]
 application/x-synology-drive-doc=synology-drive-open-file.desktop
 application/x-synology-drive-sheet=synology-drive-open-file.desktop
 application/x-synology-drive-slides=synology-drive-open-file.desktop
-x-scheme-handler/postman=Postman.desktop
+message/rfc822=userapp-Thunderbird-T8MWA0.desktop
+x-scheme-handler/http=firefox.desktop;
+x-scheme-handler/https=firefox.desktop;
 x-scheme-handler/jetbrains=jetbrains-toolbox.desktop
-x-scheme-handler/mailto=userapp-Thunderbird-HUK29Z.desktop
-message/rfc822=userapp-Thunderbird-HUK29Z.desktop
-
-[Added Associations]
-application/pdf=org.gnome.Evince.desktop;
-image/png=firefox.desktop;
-x-scheme-handler/mailto=userapp-Thunderbird-HUK29Z.desktop;
-message/rfc822=userapp-Thunderbird-HUK29Z.desktop;
+x-scheme-handler/mailto=userapp-Thunderbird-T8MWA0.desktop
+x-scheme-handler/postman=Postman.desktop
+x-scheme-handler/slack=slack.desktop

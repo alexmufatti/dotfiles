@@ -2,7 +2,7 @@
 Description=Window settings for skype
 clientmachine=localhost
 clientmachinematch=0
-desktop=6
+desktop=8
 desktoprule=3
 title=Skype
 titlematch=0
@@ -17,7 +17,7 @@ wmclassmatch=1
 Description=Window settings for slack
 clientmachine=localhost
 clientmachinematch=0
-desktop=6
+desktop=8
 desktoprule=3
 title=rig | Intré
 titlematch=0

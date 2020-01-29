@@ -20,6 +20,7 @@ endif
 
 filetype plugin indent on
 
+
 " The following are commented out as they cause vim to behave a lot
 " differently from regular Vi. They are highly recommended though.
 set showcmd		" Show (partial) command in status line.
@@ -68,9 +69,8 @@ highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE gui
 map <F5> :setlocal spell! spelllang=it_it<CR>
 map <F6> :setlocal spell! spelllang=en_us<CR>
 
-" vimwiki/vimwiki
-let g:vimwiki_list = [{'path': '~/.vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
-
+:let g:notes_directories = ['~/SynologyDrive/Notes']
+:let g:notes_suffix = '.md'
 " Specify a directory for plugins
 " - For Neovim: ~/.local/share/nvim/plugged
 " - Avoid using standard Vim directory names like 'plugin'
@@ -86,7 +86,12 @@ Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-surround'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'tpope/vim-fugitive'
+Plug 'tomasiser/vim-code-dark'
+Plug 'lifepillar/vim-solarized8'
+Plug 'xolox/vim-notes'
+Plug 'xolox/vim-misc'
 
 " Initialize plugin system
 call plug#end()
 
+colorscheme solarized8

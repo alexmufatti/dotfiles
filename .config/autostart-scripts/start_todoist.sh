@@ -1,1 +1,0 @@
-/home/mua/.scripts/start_todoist.sh

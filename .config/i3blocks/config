@@ -34,7 +34,7 @@ command=$HOME/.scripts/montalbetti.sh
 interval=3600
 
 [weather]
-command=curl -Ss 'https://wttr.in?0&T&Q' | cut -c 16- | head -2 | xargs echo
+command=curl -Ss 'https://wttr.in/bioggio?format=%l:+%c+%t'
 interval=3600
 color=#A4C2F4
 
@@ -42,17 +42,21 @@ color=#A4C2F4
 #
 # If the instance is not specified, use the interface used for default route.
 # The address can be forced to IPv4 or IPv6 with -4 or -6 switches.
-[iface]
-label=🌐
-color=#00FF00
-interval=10
-separator=false
+#[iface]
+#label=🌐
+#color=#00FF00
+#interval=10
+#separator=false
 
-[essid]
-command=iwgetid -r
-interval=60
-color=#00FF00
-separator=true
+[playerctl]
+interval=persist
+command=stdbuf -i0 -e0 -o0 playerctl metadata --follow --format '{{ emoji(status) }} {{ artist }} - {{ title }}'
+
+#[essid]
+#command=iwgetid -r
+#interval=60
+#color=#00FF00
+#separator=true
 
 #[bandwidth]
 #instance=eth0
@@ -102,11 +106,20 @@ interval=persist
 
 # Date Time
 #
-[time]
-command=date '+%Y-%m-%d %H:%M'
-interval=5
-label=
-color=#a6a6a6
+[calendar]
+command=$HOME/.scripts/calendar.sh
+interval=1
+LABEL= 
+DATEFMT=+%H:%M:%S
+# SHORTFMT=+%H:%M:%S
+HEIGHT=180
+WIDTH=220
+
+#[time]
+#command=date '+%Y-%m-%d %H:%M'
+#interval=5
+#label=
+#color=#a6a6a6
 
 # Generic media player support
 #
