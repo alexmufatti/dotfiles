@@ -1,10 +1,3 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block, everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 # zmodload zsh/zprof
 # Path to your oh-my-zsh installation.
 export ZSH=/home/mua/.oh-my-zsh
@@ -67,7 +60,7 @@ DISABLE_LS_COLORS="false"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git npm osx sublime svn brew common-aliases screen zsh-autosuggestions z zsh-syntax-highlighting)
+plugins=(git npm sublime svn common-aliases screen zsh-autosuggestions z zsh-syntax-highlighting)
 
 # User configuration
 
@@ -82,6 +75,7 @@ source $ZSH/oh-my-zsh.sh
 # Preferred editor for local and remote sessions
 export EDITOR='vim'
 
+export TERMINAL=/usr/bin/termite
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
@@ -107,14 +101,16 @@ alias jrnl="$HOME/bin/writer.sh"
 
 source /home/mua/.zshrc_private
 
-neofetch
+# neofetch
 source /usr/share/nvm/init-nvm.sh
-export PATH="$HOME/.jenv/bin:$PATH"
-eval "$(jenv init -)"
+# export PATH="$HOME/.jenv/bin:$PATH"
+# eval "$(jenv init -)"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
+
+export PATH="$HOME/.cargo/bin:$PATH"
 
 # zprof
 

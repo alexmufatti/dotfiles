@@ -1,6 +1,14 @@
-[Default Applications]
-x-scheme-handler/jetbrains=jetbrains-toolbox.desktop
-x-scheme-handler/slack=slack.desktop
-
 [Added Associations]
-application/pdf=okularApplication_pdf.desktop;
+application/pdf=xournal.desktop;org.kde.okular.desktop;libreoffice-draw.desktop;okularApplication_pdf.desktop;
+image/jpeg=org.kde.gwenview.desktop;
+text/xml=org.kde.kate.desktop;
+application/sql=org.kde.kate.desktop;
+application/vnd.openxmlformats-officedocument.wordprocessingml.document=libreoffice-writer.desktop;
+
+[Default Applications]
+application/pdf=org.kde.okular.desktop;
+x-scheme-handler/insomnia=insomnia.desktop
+x-scheme-handler/jetbrains=jetbrains-toolbox.desktop
+x-scheme-handler/postman=Postman.desktop
+x-scheme-handler/slack=slack.desktop
+x-scheme-handler/msteams=teams.desktop
