@@ -14,7 +14,7 @@ fi
 # ZSH_THEME="powerlevel10k/powerlevel10k"
 ZSH_THEME="robbyrussell"
 
-plugins=(git npm sublime svn common-aliases screen zsh-autosuggestions z zsh-syntax-highlighting)
+plugins=(git npm sublime svn common-aliases screen zsh-autosuggestions z zsh-syntax-highlighting archlinux)
 
 # User configuration
 
@@ -28,7 +28,7 @@ export LANG=en_US.UTF-8
 # Preferred editor for local and remote sessions
 export EDITOR='vim'
 
-export TERMINAL=/usr/bin/termite
+export TERMINAL=/usr/bin/alacritty
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 

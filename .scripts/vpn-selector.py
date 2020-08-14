@@ -40,7 +40,7 @@ def main(argv):
 
 	ch=""
 
-	ch = raw_input("Select your conection (q exit): ")
+	ch = input("Select your conection (q exit): ")
 
 	if (ch == "q"):
 		print ("Exit")

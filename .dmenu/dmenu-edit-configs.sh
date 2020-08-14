@@ -1,7 +1,6 @@
 #!/bin/bash
 
-declare -a options=(" awesome 
- bash 
+declare -a options=("bash 
  i3 
  zsh
  vim
@@ -20,7 +19,7 @@ choice=$(echo -e "${options[@]}" | dmenu -i -p 'Edit a config file: ')
         exec termite -e "vim $HOME/.bashrc"
 	fi
 	if [ "$choice" == ' i3 ' ]; then
-        exec termite -e "vim $HOME/.i3/config"
+        exec termite -e "vim $HOME/.config/i3/config"
 	fi
 	if [ "$choice" == ' termite ' ]; then
         exec termite -e "vim $HOME/.config/termite/config"

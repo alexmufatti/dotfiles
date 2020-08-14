@@ -7,7 +7,8 @@ import subprocess
 from libqtile.config import Key, Screen, Group, Drag, Click
 from libqtile.command import lazy
 from libqtile import layout, bar, widget, hook
-from libqtile.widget import Spacer
+from libqtile.widget import  spacer
+from Xlib import display as xdisplay
 
 ##### DEFINING SOME WINDOW FUNCTIONS #####
 
@@ -59,13 +60,10 @@ def init_keys():
                 lazy.shutdown()                         # Shutdown Qtile
                 ),
             Key([mod], "w",
-                lazy.to_screen(2)                       # Keyboard focus screen(0)
+                lazy.to_screen(1)                       # Keyboard focus screen(0)
                 ),
             Key([mod], "e",
                 lazy.to_screen(0)                       # Keyboard focus screen(1)
-                ),
-            Key([mod], "r",
-                lazy.to_screen(1)                       # Keyboard focus screen(2)
                 ),
             Key([mod, "control"], "k",
                 lazy.layout.section_up()                # Move up a section in treetab
@@ -123,32 +121,6 @@ def init_keys():
                 lazy.spawn("rofi -show drun -eh 2 -opacity 85 -font 'System San Francisco Display 18'")
                  ),
                 
-            ### Dmenu scripts launched with ALT + CTRL + KEY
-            Key(
-                ["mod1", "control"], "e",
-                lazy.spawn("./.dmenu/dmenu-edit-configs.sh")
-                ),
-            Key(
-                ["mod1", "control"], "m",
-                lazy.spawn("./.dmenu/dmenu-sysmon.sh")
-                ),
-            Key(
-                ["mod1", "control"], "p",
-                lazy.spawn("passmenu")
-                ),
-            Key(
-                ["mod1", "control"], "r",
-                lazy.spawn("./.dmenu/dmenu-reddio.sh")
-                ),
-            Key(
-                ["mod1", "control"], "s",
-                lazy.spawn("./.dmenu/dmenu-surfraw.sh")
-                ),
-            Key(
-                ["mod1", "control"], "t",
-                lazy.spawn("./.dmenu/dmenu-trading.sh")
-                ),
-                
             ### My applications launched with SUPER + ALT + KEY
             Key(
                 [mod], "F2",
@@ -159,8 +131,8 @@ def init_keys():
                 lazy.spawn("thunar")
                 ),
             Key(
-                [mod], "F3",
-                lazy.spawn("")
+                [mod], "F4",
+                lazy.spawn("code")
                 ),
         ]
     return keys
@@ -193,7 +165,7 @@ def init_group_names():
             ("CHAT", {'layout': 'monadtall'})]
 
 def init_groups():
-    return [Group(name, **kwargs) for name, kwargs in group_names]
+    return [Group(name, **kwargs) for name, kwargs in init_group_names()]
 
 
 ##### LAYOUTS #####
@@ -216,32 +188,15 @@ def init_layouts():
             layout.MonadTall(**layout_theme),
             layout.MonadWide(**layout_theme),
             layout.Bsp(**layout_theme),
-            layout.TreeTab(
-                font = "Ubuntu",
-                fontsize = 10,
-                sections = ["FIRST", "SECOND"],
-                section_fontsize = 11,
-                bg_color = "141414",
-                active_bg = "90C435",
-                active_fg = "000000",
-                inactive_bg = "384323",
-                inactive_fg = "a0a0a0",
-                padding_y = 5,
-                section_top = 10,
-                panel_width = 320,
-                **layout_theme
-                ),
-            layout.Slice(side="left", width=192, name="gimp", role="gimp-toolbox",
-                fallback=layout.Slice(side="right", width=256, role="gimp-dock",
-                fallback=layout.Stack(num_stacks=1, **border_args))),
-            #layout.Stack(stacks=2, **layout_theme),
+            layout.Stack(stacks=2, **layout_theme),
             #layout.Columns(**layout_theme),
             #layout.RatioTile(**layout_theme),
             #layout.VerticalTile(**layout_theme),
             #layout.Tile(shift_windows=True, **layout_theme),
-            #layout.Matrix(**layout_theme),
+            layout.Matrix(**layout_theme),
             #layout.Zoomy(**layout_theme),
-            layout.Floating(**layout_theme)]
+            layout.Floating(**layout_theme),
+            layout.TreeTab(**layout_theme)]
 
 ##### WIDGETS #####
 
@@ -252,9 +207,8 @@ def init_widgets_defaults():
                 background=colors[2])
 
 def init_widgets_list():
-    prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
-    widgets_list = [
-               widget.Sep(
+    return [
+               widget.sep.Sep(
                         linewidth = 0,
                         padding = 6,
                         foreground = colors[2],
@@ -278,53 +232,19 @@ def init_widgets_list():
                         foreground = colors[2],
                         background = colors[0]
                         ),
-               widget.Prompt(
-                        prompt=prompt,
-                        font="Ubuntu Mono",
-                        padding=10,
-                        foreground = colors[3],
-                        background = colors[1]
-                        ),
-               widget.Sep(
+               widget.sep.Sep(
                         linewidth = 0,
                         padding = 10,
                         foreground = colors[2],
                         background = colors[0]
                         ),
-               widget.WindowName(font="Ubuntu",
-                        fontsize = 11,
+               widget.WindowName(
+                        font="Ubuntu Bold",
+                        fontsize = 10,
                         foreground = colors[5],
-                        background = colors[0],
-                        padding = 5
+                        background = colors[0]
                         ),
-               widget.Image(
-                        scale = True,
-                        filename = "~/.config/qtile/bar06.png",
-                        background = colors[6]
-                        ),
-               widget.Systray(
-                        background=colors[10],
-                        padding = 5
-                        ),
-               widget.Image(
-                        scale = True,
-                        filename = "~/.config/qtile/bar02-b.png",
-                        background = colors[6]
-                        ),
-               widget.TextBox(
-                        text=" ↯",
-                        foreground=colors[0],
-                        background=colors[6],
-                        padding = 0,
-                        fontsize=14
-                        ),
-               widget.Battery(
-                        foreground = colors[0],
-                        background = colors[6],
-                        padding = 5,
-                        format = '{char} {percent:2.0%}'
-                        ),
-               widget.Image(
+               widget.image.Image(
                         scale = True,
                         filename = "~/.config/qtile/bar03.png",
                         background = colors[3]
@@ -342,51 +262,7 @@ def init_widgets_list():
                         background = colors[3],
                         padding = 5
                         ),
-               widget.Image(
-                        scale = True,
-                        filename = "~/.config/qtile/bar04.png",
-                        background = colors[7]
-                        ),
-               widget.TextBox(
-                        font="Ubuntu Bold",
-                        text=" ⟳",
-                        padding = 5,
-                        foreground=colors[0],
-                        background=colors[7],
-                        fontsize=14
-                        ),
-               widget.ImapWidget(
-                        update_interval = 300,
-                        foreground = colors[0],
-                        background = colors[7],
-                        server = "imaps.aruba.it",
-                        user = "me@alexmufatti.it"
-                        ),
-               widget.Image(
-                        scale = True,
-                        filename = "~/.config/qtile/bar05.png",
-                        background = colors[8]
-                        ),
-               widget.TextBox(
-                        font="Ubuntu Bold",
-                        text=" ♫",
-                        padding = 5,
-                        foreground=colors[0],
-                        background=colors[8],
-                        fontsize=14
-                        ),
-               widget.Mpris2(
-                        name='spotify',
-                        objname="org.mpris.MediaPlayer2.spotify",
-                        display_metadata=['xesam:title', 'xesam:artist'],
-                        max_chars = 40,
-                        update_interval = 1,
-                        scroll_chars=None,
-                        stop_pause_text='paused',
-                        foreground=colors[0],
-                        background = colors[8]
-                        ),
-               widget.Image(
+               widget.image.Image(
                         scale = True,
                         filename = "~/.config/qtile/bar07.png",
                         background = colors[9]
@@ -404,29 +280,208 @@ def init_widgets_list():
                         background = colors[9],
                         format="%A, %B %d - %H:%M"
                         ),
-               widget.Sep(
+               widget.sep.Sep(
                         linewidth = 0,
                         padding = 5,
                         foreground = colors[0],
                         background = colors[9]
                         ),
               ]
-    return widgets_list
 
-##### SCREENS ##### (TRIPLE MONITOR SETUP)
+def init_widgets_list_primary():
+    return [
+                widget.sep.Sep(
+                        linewidth = 0,
+                        padding = 6,
+                        foreground = colors[2],
+                        background = colors[0]
+                        ),
+                widget.GroupBox(font="Ubuntu Bold",
+                        fontsize = 9,
+                        margin_y = 0,
+                        margin_x = 0,
+                        padding_y = 5,
+                        padding_x = 5,
+                        borderwidth = 1,
+                        active = colors[2],
+                        inactive = colors[2],
+                        rounded = False,
+                        highlight_method = "block",
+                        this_current_screen_border = colors[1],
+                        this_screen_border = colors [4],
+                        other_current_screen_border = colors[0],
+                        other_screen_border = colors[0],
+                        foreground = colors[2],
+                        background = colors[0]
+                        ),
+                widget.Prompt(),
+                widget.sep.Sep(
+                        linewidth = 0,
+                        padding = 10,
+                        foreground = colors[2],
+                        background = colors[0]
+                        ),
+                widget.WindowName(
+                        font="Ubuntu Bold",
+                        fontsize = 10,
+                        foreground = colors[5],
+                        background = colors[0]
+                        ),
+                widget.notify.Notify(),
+                widget.image.Image(
+                        scale = True,
+                        filename = "~/.config/qtile/bar06.png",
+                        background = colors[6]
+                        ),
+                widget.Systray(
+                        background=colors[10],
+                        padding = 5
+                        ),
+                widget.image.Image(
+                        scale = True,
+                        filename = "~/.config/qtile/bar02-b.png",
+                        background = colors[6]
+                        ),
+                widget.TextBox(
+                        text=" ↯",
+                        foreground=colors[0],
+                        background=colors[6],
+                        padding = 0,
+                        fontsize=14
+                        ),
+                widget.battery.Battery(
+                        foreground = colors[0],
+                        background = colors[6],
+                        padding = 5,
+                        format = '{char} {percent:2.0%}'
+                        ),
+                widget.image.Image(
+                        scale = True,
+                        filename = "~/.config/qtile/bar03.png",
+                        background = colors[3]
+                        ),
+                widget.TextBox(
+                        font="Ubuntu Bold",
+                        text=" ☵",
+                        padding = 5,
+                        foreground=colors[0],
+                        background=colors[3],
+                        fontsize=14
+                        ),
+                widget.CurrentLayout(
+                        foreground = colors[0],
+                        background = colors[3],
+                        padding = 5
+                        ),
+                widget.image.Image(
+                        scale = True,
+                        filename = "~/.config/qtile/bar04.png",
+                        background = colors[7]
+                        ),
+                widget.TextBox(
+                        font="Ubuntu Bold",
+                        text=" ⌨",
+                        padding = 5,
+                        foreground=colors[0],
+                        background=colors[7],
+                        fontsize=14
+                        ),
+                widget.keyboardlayout.KeyboardLayout(
+                        update_interval = 1,
+                        foreground = colors[0],
+                        background = colors[7],
+                        configured_keyboards = ['it', 'us altgr-intl']
+                        ),
+                widget.image.Image(
+                        scale = True,
+                        filename = "~/.config/qtile/bar05.png",
+                        background = colors[8]
+                        ),
+                widget.TextBox(
+                        font="Ubuntu Bold",
+                        text=" ♫",
+                        padding = 5,
+                        foreground=colors[0],
+                        background=colors[8],
+                        fontsize=14
+                        ),
+                widget.mpris2widget.Mpris2(
+                        name='spotify',
+                        objname="org.mpris.MediaPlayer2.spotify",
+                        display_metadata=['xesam:title', 'xesam:artist'],
+                        max_chars = 40,
+                        update_interval = 1,
+                        scroll_chars=None,
+                        stop_pause_text='paused',
+                        foreground=colors[0],
+                        background = colors[8]
+                        ),
+                widget.image.Image(
+                        scale = True,
+                        filename = "~/.config/qtile/bar07.png",
+                        background = colors[9]
+                        ),
+                widget.TextBox(
+                        font="Ubuntu Bold",
+                        text=" 🕒",
+                        foreground=colors[2],
+                        background=colors[9],
+                        padding = 5,
+                        fontsize=14
+                        ),
+                widget.Clock(
+                        foreground = colors[2],
+                        background = colors[9],
+                        format="%A, %B %d - %H:%M"
+                        ),
+                widget.sep.Sep(
+                        linewidth = 0,
+                        padding = 5,
+                        foreground = colors[0],
+                        background = colors[9]
+                        ),
+              ]
 
-def init_widgets_screen1():
-    widgets_screen1 = init_widgets_list()
-    return widgets_screen1                       # Slicing removes unwanted widgets on Monitors 1,3
+# this import requires python-xlib to be installed
 
-def init_widgets_screen2():
-    widgets_screen2 = init_widgets_list()
-    return widgets_screen2                       # Monitor 2 will display all widgets in widgets_list
+
+def get_num_monitors():
+    num_monitors = 0
+    try:
+        display = xdisplay.Display()
+        screen = display.screen()
+        resources = screen.root.xrandr_get_screen_resources()
+
+        for output in resources.outputs:
+            monitor = display.xrandr_get_output_info(output, resources.config_timestamp)
+            preferred = False
+            if hasattr(monitor, "preferred"):
+                preferred = monitor.preferred
+            elif hasattr(monitor, "num_preferred"):
+                preferred = monitor.num_preferred
+            if preferred:
+                num_monitors += 1
+    except Exception as e:
+        # always setup at least one monitor
+        return 1
+    else:
+        return num_monitors
 
 def init_screens():
-    return [Screen(top=bar.Bar(widgets=init_widgets_screen1(), opacity=0.95, size=20)),
-            Screen(top=bar.Bar(widgets=init_widgets_screen2(), opacity=0.95, size=20)),
-            Screen(top=bar.Bar(widgets=init_widgets_screen1(), opacity=0.95, size=20))]
+    num_monitors = get_num_monitors()
+    ret_screens = [Screen(top=bar.Bar(widgets=init_widgets_list_primary(), opacity=0.95, size=24))]
+
+    if num_monitors > 1:
+        for m in range(num_monitors - 1):
+            ret_screens.append(
+                Screen(
+                    top=bar.Bar(widgets=init_widgets_list(),
+                        size=24,
+                        opacity=0.95,
+                    ),
+                )
+            )
+    return ret_screens
 
 ##### FLOATING WINDOWS #####
 
@@ -470,21 +525,19 @@ if __name__ in ["config", "__main__"]:
     colors = init_colors()
     keys = init_keys()
     mouse = init_mouse()
-    group_names = init_group_names()
     groups = init_groups()
+    screens = init_screens()
+    
     floating_layout = init_floating_layout()
     layout_theme = init_layout_theme()
     border_args = init_border_args()
     layouts = init_layouts()
-    screens = init_screens()
+    
     widget_defaults = init_widgets_defaults()
-    widgets_list = init_widgets_list()
-    widgets_screen1 = init_widgets_screen1()
-    widgets_screen2 = init_widgets_screen2()
 
 ##### SETS GROUPS KEYBINDINGS #####
 
-for i, (name, kwargs) in enumerate(group_names, 1):
+for i, (name, kwargs) in enumerate(init_group_names(), 1):
     keys.append(Key([mod], str(i), lazy.group[name].toscreen()))          # Switch to another group
     keys.append(Key([mod, "shift"], str(i), lazy.window.togroup(name)))   # Send current window to another group
 
@@ -497,5 +550,5 @@ def start_once():
 
 ##### NEEDED FOR SOME JAVA APPS #####
 
-#wmname = "LG3D"
-wmname = "qtile"
+wmname = "LG3D"
+#wmname = "qtile"
