@@ -1,0 +1,7 @@
+[Unit]
+Description=File Sorter Service
+
+[Service]
+Type=simple
+Environment="PATH=/usr/local/bin:/usr/bin:/bin"
+ExecStart=/usr/bin/python /home/mua/bin/sorter.py
