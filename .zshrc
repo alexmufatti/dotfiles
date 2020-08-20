@@ -14,7 +14,7 @@ fi
 # ZSH_THEME="powerlevel10k/powerlevel10k"
 ZSH_THEME="robbyrussell"
 
-plugins=(git npm sublime svn common-aliases screen zsh-autosuggestions z zsh-syntax-highlighting archlinux)
+plugins=(nmap colorize colored-man-pages git npm sublime common-aliases zsh-autosuggestions zsh-syntax-highlighting archlinux battery docker docker-compose)
 
 # User configuration
 
@@ -41,7 +41,22 @@ export PATH="/usr/local/sbin:$PATH"
 unalias t
 
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
-alias jrnl="$HOME/bin/writer.sh"
+alias vim="nvim"
+alias cleanup="sudo pacman -Rns $(pacman -Qtdq)"
+alias upgrade="sudo yay -Syu"
+alias psmem="ps aux | sort -nr -k 4 | head -10"
+alias pscpu="ps aux | sort -nr -k 3 | head -10"
+alias jctl="journalctl -p 3 -xb"
+alias yta-aac="youtube-dl --extract-audio --audio-format aac "
+alias yta-best="youtube-dl --extract-audio --audio-format best "
+alias yta-flac="youtube-dl --extract-audio --audio-format flac "
+alias yta-m4a="youtube-dl --extract-audio --audio-format m4a "
+alias yta-mp3="youtube-dl --extract-audio --audio-format mp3 "
+alias yta-opus="youtube-dl --extract-audio --audio-format opus "
+alias yta-vorbis="youtube-dl --extract-audio --audio-format vorbis "
+alias yta-wav="youtube-dl --extract-audio --audio-format wav "
+alias ytv-best="youtube-dl -f bestvideo+bestaudio "
+
 
 source /home/mua/.zshrc_private
 

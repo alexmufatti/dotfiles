@@ -1,0 +1,18 @@
+set from = "me@alexmufatti.it"
+set realname='Alex Mufatti'
+
+set move=no
+set record="+me/INBOX.Sent"
+set postponed="+me/INBOX.Drafts"
+set spoolfile="+me/Inbox"
+
+# Status Bar -----------------------------------------
+set status_format = "(ME) ───[ Folder: %f ]───[%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]───%>─%?p?( %p postponed )?───"
+set sendmail="/home/mua/.scripts/send-from-mutt.sh me"
+
+# Alternate email addresses.
+unalternates
+alternates ^info@alexmufatti.it$ ^blog@alexmufatti.it$
+
+set signature = ~/.mutt/signatures/me
+color status brightyellow black

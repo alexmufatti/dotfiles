@@ -1,3 +1,13 @@
+IMAPAccount run
+# Address to connect to
+Host imaps.aruba.it
+User alex@codeandrun.it
+# To store the password in an encrypted file use PassCmd instead of Pass
+PassCmd "cat ~/.mailpass |awk '/machine imaps.aruba.it login alex@codeandrun.it/ {print $NF}'"
+#
+# Use SSL
+SSLType IMAPS
+
 IMAPAccount me
 # Address to connect to
 Host imaps.aruba.it
@@ -12,14 +22,39 @@ CertificateFile /etc/ssl/certs/ca-certificates.crt
 #CertificateFile ~/.cert/imap.gmail.com.pem
 #CertificateFile ~/.cert/Equifax_Secure_CA.pem
 
+IMAPStore run-remote
+Account run
+
 IMAPStore me-remote
 Account me
+
+
+MaildirStore run-local
+Subfolders Verbatim
+# The trailing "/" is important
+Path ~/.mail/run/
+Inbox ~/.mail/run/Inbox
+Flatten .
 
 MaildirStore me-local
 Subfolders Verbatim
 # The trailing "/" is important
 Path ~/.mail/me/
 Inbox ~/.mail/me/Inbox
+Flatten .
+
+Channel run
+Master :run-remote:
+Slave :run-local:
+# Exclude everything under the internal [Gmail] folder, except the interesting folders
+Patterns *
+# Or include everything
+#Patterns *
+# Automatically create missing mailboxes, both locally and on the server
+Create Both
+# Save the synchronization state files in the relevant directory
+SyncState *
+Expunge Both
 
 Channel me
 Master :me-remote:
@@ -32,3 +67,4 @@ Patterns *
 Create Both
 # Save the synchronization state files in the relevant directory
 SyncState *
+Expunge Both

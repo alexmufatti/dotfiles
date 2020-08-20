@@ -24,7 +24,7 @@ hide_edge_borders none
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font xft:Hack 12
+font xft:Mononoki Nerd Font 12
 
 # Use Mouse+$mod to drag floating windows
 floating_modifier $mod
@@ -42,8 +42,8 @@ bindsym $mod+Shift+Return exec termite
 bindsym $mod+q kill
 
 # start program launcher
-bindsym $mod+shift+space exec --no-startup-id dmenu_run -i  -nb "$bg-color" -nf "$text-color" -sb "$text-color" -sf "$bg-color" -fn 'FiraCode:pixelsize=20'
-bindsym $mod+space exec rofi -show drun -eh 2 -opacity 85 -bw 0 -font "Hack 18" 
+bindsym $mod+shift+space exec --no-startup-id dmenu_run -i  -nb "$bg-color" -nf "$text-color" -sb "$text-color" -sf "$bg-color" -fn 'Mononoki Nerd Font:pixelsize=20'
+bindsym $mod+space exec rofi -show drun -eh 2 -opacity 85 -bw 0 -font "Mononoki Nerd Font 18" 
 bindsym $mod+ctrl+space exec --no-startup-id xfce4-appfinder --disable-server
 bindsym $mod+ctrl+c exec --no-startup-id ./.dmenu/dmenu-edit-configs.sh
 
@@ -57,7 +57,7 @@ bindsym $mod+F3 exec dolphin
 bindsym $mod+Shift+F3 exec alacritty -e ranger
 bindsym $mod+F5 exec spotify
 bindsym $mod+Ctrl+d --release exec "killall dunst; exec notify-send 'restart dunst'"
-
+bindsym $mod+m exec alacritty -e neomutt
 
 # Print screen
 bindsym Print exec --no-startup-id i3-scrot
@@ -65,7 +65,7 @@ bindsym shift+Print --release exec --no-startup-id maim --format=png -s /dev/std
 bindsym $mod+Print --release exec --no-startup-id i3-scrot -s
 
 bindsym $mod+e exec --no-startup-id ~/.scripts/dmenuunicode
-bindsym $mod+c exec --no-startup-id ~/.scripts/ddspawn dropdowncalc -f mono:pixelsize=24
+bindsym $mod+c exec --no-startup-id ~/.scripts/ddspawn dropdowncalc
 
 # media player controls
 bindsym $mod+p exec --no-startup-id playerctl play-pause
@@ -195,6 +195,9 @@ for_window [class="(?i)System-config-printer.py"] floating enable border normal
 for_window [class="Timeset-gui"] floating enable border normal
 for_window [class="(?i)virtualbox"] floating enable border normal
 for_window [class="Xfburn"] floating enable
+for_window [title="Microsoft Teams Notification"] floating enable
+no_focus [title="Microsoft Teams Notification"]
+
 
 # General dropdown window traits. The order can matter.
 for_window [title="^dropdown"] floating enable

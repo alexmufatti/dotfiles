@@ -68,8 +68,6 @@ highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE gui
 map <F5> :setlocal spell! spelllang=it_it<CR>
 map <F6> :setlocal spell! spelllang=en_us<CR>
 
-" vimwiki/vimwiki
-let g:vimwiki_list = [{'path': '~/.vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
 
 " Specify a directory for plugins
 " - For Neovim: ~/.local/share/nvim/plugged
@@ -85,9 +83,10 @@ Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-surround'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'vimwiki/vimwiki'
 Plug 'tpope/vim-fugitive'
+Plug 'lifepillar/vim-solarized8'
 
 " Initialize plugin system
 call plug#end()
 
+colorscheme solarized8

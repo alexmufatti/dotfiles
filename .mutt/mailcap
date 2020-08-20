@@ -1,0 +1,5 @@
+text/html; /usr/bin/firefox %s
+text/html; w3m -I %{charset} -T text/html; copiousoutput;
+image/*; xdg-open %s
+application/pgp-keys; pgp -f < %s ; copiousoutput
+application/*; xdg-open %s

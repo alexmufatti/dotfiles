@@ -4,19 +4,19 @@ font:
   size: 13
   # The normal (roman) font face to use.
   normal:
-    family: Liberation Mono
+    family: Mononoki Nerd Font
     # Style can be specified to pick a specific face.
     style: Regular
 
   # The bold font face
   bold:
-    family: Liberation Mono
+    family: Mononoki Nerd Font
     # Style can be specified to pick a specific face.
     # style: Bold
 
   # The italic font face
   italic:
-    family: Liberation Mono
+    family: Mononoki Nerd Font
     # Style can be specified to pick a specific face.
     # style: Italic
 

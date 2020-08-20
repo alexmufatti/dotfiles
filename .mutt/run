@@ -1,0 +1,14 @@
+set from = "alex@codeandrun.it"
+set realname='Alex'
+
+set move=no
+set record="+run/INBOX.Sent"
+set postponed="+run/INBOX.Drafts"
+set spoolfile="+run/Inbox"
+# Status Bar -----------------------------------------
+set status_format = "(RUN) ───[ Folder: %f ]───[%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]───%>─%?p?( %p postponed )?───"
+set sendmail="/home/mua/.scripts/send-from-mutt.sh run"
+
+unalternates
+set signature = ~/.mutt/signatures/run
+color status brightred black

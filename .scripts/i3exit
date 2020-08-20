@@ -9,7 +9,7 @@ case "$1" in
         ~/.scripts/blurlock
         ;;
     logout)
-        i3-msg '\[class="."\] kill'
+        i3-msg '[class="."] kill'
         i3-msg exit
         ;;
     suspend)
@@ -19,11 +19,11 @@ case "$1" in
         ~/.scripts/blurlock && $logind hibernate
         ;;
     reboot)
-        i3-msg '\[class="."\] kill'
+        i3-msg '[class="."] kill'
         $logind reboot
         ;;
     shutdown)
-        i3-msg '\[class="."\] kill'
+        i3-msg '[class="."] kill'
         $logind poweroff
         ;;
     *)

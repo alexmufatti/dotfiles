@@ -69,8 +69,6 @@ highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE gui
 map <F5> :setlocal spell! spelllang=it_it<CR>
 map <F6> :setlocal spell! spelllang=en_us<CR>
 
-:let g:notes_directories = ['~/nextcloud-home/Notes']
-:let g:notes_suffix = '.md'
 " Specify a directory for plugins
 " - For Neovim: ~/.local/share/nvim/plugged
 " - Avoid using standard Vim directory names like 'plugin'
