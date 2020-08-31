@@ -51,12 +51,12 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 2
 
-font-0 = "UbuntuMono Nerd Font:style=Regular:pixelsize=11:1"
+font-0 = "JetBrainsMono Nerd Font:style=Regular:pixelsize=10:1"
 font-1 = "Noto Color Emoji:pixelsize=16:style=Regular:scale=10;2"
 
-modules-left = i3
+modules-left = i3 xwindow
 modules-center = spotify
-modules-right = xkeyboard wlan battery temperature date
+modules-right = montalbetti xkeyboard battery temperature date pulseaudio-control
 
 tray-position = right
 tray-padding = 2
@@ -75,6 +75,21 @@ override-redirect = false
 
 cursor-click = pointer
 cursor-scroll = ns-resize
+
+[module/pulseaudio-control]
+type = custom/script
+tail = true
+label=%output%
+format-underline = #00ff00
+
+exec = ~/.config/polybar/pulseaudio-control.bash listen
+click-right = exec pavucontrol &
+click-left = ~/.config/polybar/pulseaudio-control.bash togmute
+click-middle = ~/.config/polybar/pulseaudio-control.bash next-sink
+scroll-up = ~/.config/polybar/pulseaudio-control.bash up
+scroll-down = ~/.config/polybar/pulseaudio-control.bash down
+label-padding = 2
+label-foreground = ${colors.foreground}
 
 [module/spotify]
 type = custom/script
@@ -113,7 +128,7 @@ wrapping-scroll = false
 enable-scroll = false
 
 ; Only show workspaces on the same output as the bar
-;pin-workspaces = true
+pin-workspaces = true
 
 label-mode-padding = 2
 label-mode-foreground = #000
@@ -227,6 +242,29 @@ format-warn-underline = ${self.format-underline}
 label = %temperature-c%
 label-warn = %temperature-c%
 label-warn-foreground = ${colors.secondary}
+
+[module/montalbetti]
+type = custom/script
+
+; Available tokens:
+;   %counter%
+; Command to be executed (using "/bin/sh -c [command]")
+exec = $HOME/.scripts/montalbetti-polybar.sh 
+
+; Conditional command that, if defined, needs to exit successfully
+; before the main exec command is invoked.
+; Default: ""
+exec-if = wget --spider --quiet https://www.montalbettisrl.com
+
+; Will the script output continous content?
+; Default: false
+tail = false
+
+; Seconds to sleep between updates
+; Default: 5 (0 if `tail = true`)
+interval = 300
+format = 🚲 <label>
+format-underline = #ffb52a
 
 [settings]
 screenchange-reload = true
