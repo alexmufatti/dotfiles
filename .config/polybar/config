@@ -56,7 +56,7 @@ font-1 = "Noto Color Emoji:pixelsize=16:style=Regular:scale=10;2"
 
 modules-left = i3 xwindow
 modules-center = spotify
-modules-right = montalbetti xkeyboard battery temperature date pulseaudio-control
+modules-right = montalbetti xkeyboard battery cpu temperature pulseaudio-control date
 
 tray-position = right
 tray-padding = 2
@@ -76,11 +76,19 @@ override-redirect = false
 cursor-click = pointer
 cursor-scroll = ns-resize
 
+[module/cpu]
+type = internal/cpu
+format-underline = #f50a4d
+label = 💻 %percentage%%
+; Seconds to sleep between updates
+; Default: 1
+interval = 2
+
 [module/pulseaudio-control]
 type = custom/script
 tail = true
 label=%output%
-format-underline = #00ff00
+format-underline = #00aa7f
 
 exec = ~/.config/polybar/pulseaudio-control.bash listen
 click-right = exec pavucontrol &
@@ -88,7 +96,7 @@ click-left = ~/.config/polybar/pulseaudio-control.bash togmute
 click-middle = ~/.config/polybar/pulseaudio-control.bash next-sink
 scroll-up = ~/.config/polybar/pulseaudio-control.bash up
 scroll-down = ~/.config/polybar/pulseaudio-control.bash down
-label-padding = 2
+label-padding = 0
 label-foreground = ${colors.foreground}
 
 [module/spotify]
@@ -110,14 +118,14 @@ blacklist-0 = num lock
 format-prefix-font=1
 format-prefix = "⌨ "
 format-prefix-foreground = ${colors.foreground-alt}
-format-prefix-underline = ${colors.secondary}
+format-prefix-underline = #ffaaff
 label-layout = %layout%
-label-layout-underline = ${colors.secondary}
+label-layout-underline = #ffaaff
 
 label-indicator-padding = 0
 label-indicator-margin = 0
 label-indicator-background = ${colors.secondary}
-label-indicator-underline = ${colors.secondary}
+label-indicator-underline = #ffaaff
 
 
 [module/i3]
@@ -154,30 +162,6 @@ label-urgent = %index%
 label-urgent-background = ${colors.alert}
 label-urgent-padding = 2
 
-; Separator in between workspaces
-; label-separator = |
-
-[module/wlan]
-type = internal/network
-interface = wlp2s0
-interval = 3.0
-
-format-connected = <label-connected>
-label-connected = %essid%
-format-connected-underline = #9f78e1
-format-disconnected =
-;format-disconnected = <label-disconnected>
-;format-disconnected-underline = ${self.format-connected-underline}
-;label-disconnected = %ifname% disconnected
-;label-disconnected-foreground = ${colors.foreground-alt}
-
-ramp-signal-0 = 
-ramp-signal-1 = 
-ramp-signal-2 = 
-ramp-signal-3 = 
-ramp-signal-4 = 
-ramp-signal-foreground = ${colors.foreground-alt}
-
 [module/date]
 type = internal/date
 interval = 5
@@ -186,7 +170,7 @@ date =
 date-alt = " %Y-%m-%d"
 
 time = %H:%M
-time-alt = %H:%M:%S
+time-alt = %H:%M
 
 format-prefix = 🕒
 format-prefix-foreground = ${colors.foreground-alt}
@@ -197,7 +181,7 @@ label = %date% %time%
 type = internal/battery
 battery = BAT0
 adapter = AC
-full-at = 98
+full-at = 95
 ; Available tags:
 ;   <label-charging> (default)
 ;   <bar-capacity>
@@ -224,7 +208,7 @@ label-charging = 🔌 %percentage%%
 ;   %percentage_raw%
 ;   %time%
 ;   %consumption% (shows current discharge rate in watts)
-label-discharging = 🔋 %percentage%%
+label-discharging = ⏬ %percentage%%
 
 format-full = ⚡ Full
 format-full-foreground = ${colors.foreground-alt}
@@ -237,8 +221,8 @@ warn-temperature = 60
 
 format = 🌡 <label>
 format-warn = <label-warn>
-format-underline = #f50a4d
-format-warn-underline = ${self.format-underline}
+format-underline = #ff5500
+format-warn-underline = #f50a4d
 label = %temperature-c%
 label-warn = %temperature-c%
 label-warn-foreground = ${colors.secondary}
@@ -264,7 +248,7 @@ tail = false
 ; Default: 5 (0 if `tail = true`)
 interval = 300
 format = 🚲 <label>
-format-underline = #ffb52a
+format-underline = #00aaff
 
 [settings]
 screenchange-reload = true

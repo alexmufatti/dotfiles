@@ -9,12 +9,12 @@
 OSD="no"  # On Screen Display message for KDE if enabled
 INC=2  # Increment when lowering/rising the volume
 MAX_VOL=130  # Maximum volume
-AUTOSYNC="no"  # All programs have the same volume if enabled
-VOLUME_ICONS=( "# " "# " "# " )  # Volume icons array, from lower volume to higher
-MUTED_ICON="# "  # Muted volume icon
+AUTOSYNC="yes"  # All programs have the same volume if enabled
+VOLUME_ICONS=( "🔈 " "🔉 " "🔊 " )  # Volume icons array, from lower volume to higher
+MUTED_ICON="🔇 "  # Muted volume icon
 MUTED_COLOR="%{F#6b6b6b}"  # Color when the audio is muted
 NOTIFICATIONS="no"  # Notifications when switching sinks if enabled
-SINK_ICON="# "  # Icon always shown to the left of the default sink names
+SINK_ICON="🎧 "  # Icon always shown to the left of the default sink names
 
 # Blacklist of PulseAudio sink names when switching between them. To obtain
 # the names of your active sinks, use `pactl list sinks short`.

@@ -60,9 +60,9 @@ bindsym $mod+Ctrl+d --release exec "killall dunst; exec notify-send 'restart dun
 bindsym $mod+m exec alacritty -e neomutt
 
 # Print screen
-bindsym Print exec --no-startup-id i3-scrot
-bindsym shift+Print --release exec --no-startup-id maim --format=png -s /dev/stdout | xclip -selection clipboard -t image/png -i
-bindsym $mod+Print --release exec --no-startup-id i3-scrot -s
+bindsym shift+Print exec --no-startup-id maim ~/Pictures/Screenshot_$(date +%F-%H%M%S).png && notify-send 'Screenshot saved in Pictures folder'
+bindsym Print --release exec --no-startup-id notify-send 'Select screenshot area' && maim --format=png -s /dev/stdout | xclip -selection clipboard -t image/png -i && notify-send 'Image copied to clipboard'
+bindsym $mod+Print --release exec --no-startup-id notify-send 'Select screenshot area' && maim -s ~/Pictures/Screenshot_$(date +%F-%H%M%S).png && notify-send 'Screenshot saved in Pictures folder'
 
 bindsym $mod+e exec --no-startup-id ~/.scripts/dmenuunicode
 bindsym $mod+c exec --no-startup-id ~/.scripts/ddspawn dropdowncalc
