@@ -1,4 +1,4 @@
-##### IMPORTS #####
+##### IMPORTS #####/
 
 import os
 import re
@@ -91,12 +91,10 @@ def init_keys():
             Key(
                 [mod, "mod1"], "Right",
                 lazy.layout.grow(),                     # Grow size of current window (XmonadTall)
-                lazy.layout.increase_nmaster(),         # Increase number in master pane (Tile)
                 ),
             Key(
                 [mod, "mod1"], "Left",
                 lazy.layout.shrink(),                   # Shrink size of current window (XmonadTall)
-                lazy.layout.decrease_nmaster(),         # Decrease number in master pane (Tile)
                 ),
             Key(
                 [mod], "n",
@@ -114,11 +112,11 @@ def init_keys():
             ### Dmenu Run Launcher
             Key(
                 [mod, "mod1"], "space",
-                lazy.spawn("dmenu_run -fn 'UbuntuMono Nerd Font:size=10' -nb '#292d3e' -nf '#bbc5ff' -sb '#82AAFF' -sf '#292d3e' -p 'dmenu:'")
+                lazy.spawn("dmenu_run -fn 'JetBrainsMono Nerd Font:pixelsize=20' -nb '#292d3e' -nf '#bbc5ff' -sb '#82AAFF' -sf '#292d3e' -p 'dmenu:'")
                 ),
             Key(
                 [mod], "space",
-                lazy.spawn("rofi -show drun -eh 2 -opacity 85 -font 'System San Francisco Display 18'")
+                lazy.spawn("rofi -show drun -eh 2 -opacity 85 -font 'JetBrainsMono Nerd Font 18'")
                  ),
                 
             ### My applications launched with SUPER + ALT + KEY
@@ -128,13 +126,22 @@ def init_keys():
                 ),
             Key(
                 [mod], "F3",
-                lazy.spawn("thunar")
+                lazy.spawn("dolphin")
                 ),
             Key(
-                [mod], "F4",
-                lazy.spawn("code")
+                ["shift"], "Print",
+                lazy.spawn("maim ~/Pictures/Screenshot_$(date +%F-%H%M%S).png && notify-send 'Screenshot saved in Pictures folder'")
+                ),
+            Key(
+                [], "Print",
+                lazy.spawn("notify-send 'Select screenshot area' && maim --format=png -s /dev/stdout | xclip -selection clipboard -t image/png -i && notify-send 'Image copied to clipboard'")
+                ),
+            Key(
+                [mod], "Print",
+                lazy.spawn("notify-send 'Select screenshot area' && maim -s ~/Pictures/Screenshot_$(date +%F-%H%M%S).png && notify-send 'Screenshot saved in Pictures folder'")
                 ),
         ]
+
     return keys
 
 ##### BAR COLORS #####
@@ -171,7 +178,23 @@ def init_groups():
 ##### LAYOUTS #####
 
 def init_floating_layout():
-    return layout.Floating(border_focus="#3B4022")
+    return layout.Floating(border_focus="#3B4022", float_rules=[
+    # Run the utility of `xprop` to see the wm class and name of an X client.
+    {'wmclass': 'confirm'},
+    {'wmclass': 'dialog'},
+    {'wmclass': 'download'},
+    {'wmclass': 'error'},
+    {'wmclass': 'file_progress'},
+    {'wmclass': 'notification'},
+    {'wmclass': 'splash'},
+    {'wmclass': 'toolbar'},
+    {'wmclass': 'confirmreset'},  # gitk
+    {'wmclass': 'makebranch'},  # gitk
+    {'wmclass': 'maketag'},  # gitk
+    {'wname': 'branchdialog'},  # gitk
+    {'wname': 'pinentry'},  # GPG key password entry
+    {'wmclass': 'ssh-askpass'},  # ssh-askpass
+])
 
 def init_layout_theme():
     return {"border_width": 2,
@@ -185,7 +208,7 @@ def init_border_args():
 
 def init_layouts():
     return [layout.Max(**layout_theme),
-            layout.MonadTall(**layout_theme),
+            layout.MonadTall(ratio=0.60,**layout_theme),
             layout.MonadWide(**layout_theme),
             layout.Bsp(**layout_theme),
             layout.Stack(stacks=2, **layout_theme),
@@ -201,74 +224,49 @@ def init_layouts():
 ##### WIDGETS #####
 
 def init_widgets_defaults():
-    return dict(font="Ubuntu Mono",
-                fontsize = 11,
+    return dict(font="JetBrainsMono Nerd Font",
+                fontsize = 10,
                 padding = 2,
                 background=colors[2])
 
-def init_widgets_list():
+
+def init_left_side_widgets():
     return [
-               widget.sep.Sep(
+               widget.Sep(
                         linewidth = 0,
                         padding = 6,
                         foreground = colors[2],
                         background = colors[0]
                         ),
-               widget.GroupBox(font="Ubuntu Bold",
-                        fontsize = 9,
-                        margin_y = 0,
-                        margin_x = 0,
-                        padding_y = 5,
-                        padding_x = 5,
+               widget.GroupBox(
+                        padding_x = 6,
                         borderwidth = 1,
                         active = colors[2],
                         inactive = colors[2],
                         rounded = False,
-                        highlight_method = "block",
-                        this_current_screen_border = colors[1],
-                        this_screen_border = colors [4],
-                        other_current_screen_border = colors[0],
-                        other_screen_border = colors[0],
+                        highlight_method = "line",
+                        this_current_screen_border = colors[7],
+                        this_screen_border = colors [7],
+                        other_current_screen_border = colors[2],
+                        other_screen_border = colors[2],
                         foreground = colors[2],
                         background = colors[0]
                         ),
-               widget.sep.Sep(
+               widget.Sep(
                         linewidth = 0,
                         padding = 10,
                         foreground = colors[2],
                         background = colors[0]
                         ),
                widget.WindowName(
-                        font="Ubuntu Bold",
-                        fontsize = 10,
                         foreground = colors[5],
                         background = colors[0]
-                        ),
-               widget.image.Image(
-                        scale = True,
-                        filename = "~/.config/qtile/bar03.png",
-                        background = colors[3]
-                        ),
+                        )
+            ]
+
+def init_right_side_widgets():
+    return [
                widget.TextBox(
-                        font="Ubuntu Bold",
-                        text=" ☵",
-                        padding = 5,
-                        foreground=colors[0],
-                        background=colors[3],
-                        fontsize=14
-                        ),
-               widget.CurrentLayout(
-                        foreground = colors[0],
-                        background = colors[3],
-                        padding = 5
-                        ),
-               widget.image.Image(
-                        scale = True,
-                        filename = "~/.config/qtile/bar07.png",
-                        background = colors[9]
-                        ),
-               widget.TextBox(
-                        font="Ubuntu Bold",
                         text=" 🕒",
                         foreground=colors[2],
                         background=colors[9],
@@ -280,55 +278,42 @@ def init_widgets_list():
                         background = colors[9],
                         format="%A, %B %d - %H:%M"
                         ),
-               widget.sep.Sep(
+               widget.Sep(
                         linewidth = 0,
                         padding = 5,
                         foreground = colors[0],
                         background = colors[9]
                         ),
-              ]
+               ]
+
+def init_widgets_list():
+    return init_left_side_widgets() + [
+               widget.image.Image(
+                        scale = True,
+                        filename = "~/.config/qtile/bar03-alone.png",
+                        background = colors[3]
+                        ),
+               widget.CurrentLayoutIcon(
+                        foreground = colors[0],
+                        background = colors[3],
+                        padding = 5,
+                        scale = 0.6
+                        ),
+               widget.CurrentLayout(
+                        foreground = colors[0],
+                        background = colors[3],
+                        padding = 5
+                        ),
+               widget.image.Image(
+                        scale = True,
+                        filename = "~/.config/qtile/bar07-alone.png",
+                        background = colors[9]
+                        ),
+              ] + init_right_side_widgets()
 
 def init_widgets_list_primary():
-    return [
-                widget.sep.Sep(
-                        linewidth = 0,
-                        padding = 6,
-                        foreground = colors[2],
-                        background = colors[0]
-                        ),
-                widget.GroupBox(font="Ubuntu Bold",
-                        fontsize = 9,
-                        margin_y = 0,
-                        margin_x = 0,
-                        padding_y = 5,
-                        padding_x = 5,
-                        borderwidth = 1,
-                        active = colors[2],
-                        inactive = colors[2],
-                        rounded = False,
-                        highlight_method = "block",
-                        this_current_screen_border = colors[1],
-                        this_screen_border = colors [4],
-                        other_current_screen_border = colors[0],
-                        other_screen_border = colors[0],
-                        foreground = colors[2],
-                        background = colors[0]
-                        ),
-                widget.Prompt(),
-                widget.sep.Sep(
-                        linewidth = 0,
-                        padding = 10,
-                        foreground = colors[2],
-                        background = colors[0]
-                        ),
-                widget.WindowName(
-                        font="Ubuntu Bold",
-                        fontsize = 10,
-                        foreground = colors[5],
-                        background = colors[0]
-                        ),
-                widget.notify.Notify(),
-                widget.image.Image(
+    return init_left_side_widgets() + [
+                widget.Image(
                         scale = True,
                         filename = "~/.config/qtile/bar06.png",
                         background = colors[6]
@@ -337,7 +322,7 @@ def init_widgets_list_primary():
                         background=colors[10],
                         padding = 5
                         ),
-                widget.image.Image(
+                widget.Image(
                         scale = True,
                         filename = "~/.config/qtile/bar02-b.png",
                         background = colors[6]
@@ -349,63 +334,59 @@ def init_widgets_list_primary():
                         padding = 0,
                         fontsize=14
                         ),
-                widget.battery.Battery(
+                widget.Battery(
                         foreground = colors[0],
                         background = colors[6],
                         padding = 5,
                         format = '{char} {percent:2.0%}'
                         ),
-                widget.image.Image(
+                widget.Image(
                         scale = True,
                         filename = "~/.config/qtile/bar03.png",
                         background = colors[3]
                         ),
-                widget.TextBox(
-                        font="Ubuntu Bold",
-                        text=" ☵",
+               widget.CurrentLayoutIcon(
+                        foreground = colors[0],
+                        background = colors[3],
                         padding = 5,
-                        foreground=colors[0],
-                        background=colors[3],
-                        fontsize=14
+                        scale = 0.6
                         ),
                 widget.CurrentLayout(
                         foreground = colors[0],
                         background = colors[3],
                         padding = 5
                         ),
-                widget.image.Image(
+                widget.Image(
                         scale = True,
                         filename = "~/.config/qtile/bar04.png",
                         background = colors[7]
                         ),
                 widget.TextBox(
-                        font="Ubuntu Bold",
-                        text=" ⌨",
+                        text="⌨",
                         padding = 5,
                         foreground=colors[0],
                         background=colors[7],
                         fontsize=14
                         ),
-                widget.keyboardlayout.KeyboardLayout(
+                widget.KeyboardLayout(
                         update_interval = 1,
                         foreground = colors[0],
                         background = colors[7],
                         configured_keyboards = ['it', 'us altgr-intl']
                         ),
-                widget.image.Image(
+                widget.Image(
                         scale = True,
                         filename = "~/.config/qtile/bar05.png",
                         background = colors[8]
                         ),
                 widget.TextBox(
-                        font="Ubuntu Bold",
                         text=" ♫",
                         padding = 5,
                         foreground=colors[0],
                         background=colors[8],
                         fontsize=14
                         ),
-                widget.mpris2widget.Mpris2(
+                widget.Mpris2(
                         name='spotify',
                         objname="org.mpris.MediaPlayer2.spotify",
                         display_metadata=['xesam:title', 'xesam:artist'],
@@ -416,31 +397,12 @@ def init_widgets_list_primary():
                         foreground=colors[0],
                         background = colors[8]
                         ),
-                widget.image.Image(
+                widget.Image(
                         scale = True,
                         filename = "~/.config/qtile/bar07.png",
                         background = colors[9]
                         ),
-                widget.TextBox(
-                        font="Ubuntu Bold",
-                        text=" 🕒",
-                        foreground=colors[2],
-                        background=colors[9],
-                        padding = 5,
-                        fontsize=14
-                        ),
-                widget.Clock(
-                        foreground = colors[2],
-                        background = colors[9],
-                        format="%A, %B %d - %H:%M"
-                        ),
-                widget.sep.Sep(
-                        linewidth = 0,
-                        padding = 5,
-                        foreground = colors[0],
-                        background = colors[9]
-                        ),
-              ]
+              ] + init_right_side_widgets()
 
 # this import requires python-xlib to be installed
 
@@ -494,7 +456,7 @@ def floating(window):
 
 @hook.subscribe.client_new
 def class_to_group(client):
-    apps = {'skype': 'CHAT',"slack": 'CHAT','spotify': 'MUSIC'}
+    apps = {'microsoft teams - preview': 'CHAT', 'skype': 'CHAT',"slack": 'CHAT','spotify': 'MUSIC'}
     wm_class = client.window.get_wm_class()[0]
     group = apps.get(wm_class, None)
     if group:
@@ -515,13 +477,19 @@ def init_mouse():
                  start=lazy.window.get_size()),
             Click([mod, "shift"], "Button1", lazy.window.bring_to_front())]  # Bring floating window to front
 
+def move_and_follow(name):
+    lazy.window.togroup(name)
+    lazy.group[name].toscreen()
+
+
 ##### DEFINING A FEW THINGS #####
 
 if __name__ in ["config", "__main__"]:
     mod = "mod4"                                     # Sets mod key to SUPER/WINDOWS
     myTerm = "termite"                                    # My terminal of choice
     myConfig = "/home/mua/.config/qtile/config.py"    # Qtile config file location 
-
+    
+    follow_mouse_focus = True
     colors = init_colors()
     keys = init_keys()
     mouse = init_mouse()
@@ -535,13 +503,21 @@ if __name__ in ["config", "__main__"]:
     
     widget_defaults = init_widgets_defaults()
 
-##### SETS GROUPS KEYBINDINGS #####
+    ##### SETS GROUPS KEYBINDINGS #####
 
-for i, (name, kwargs) in enumerate(init_group_names(), 1):
-    keys.append(Key([mod], str(i), lazy.group[name].toscreen()))          # Switch to another group
-    keys.append(Key([mod, "shift"], str(i), lazy.window.togroup(name)))   # Send current window to another group
+    for i, (name, kwargs) in enumerate(init_group_names(), 1):
+        keys.append(Key([mod], str(i), lazy.group[name].toscreen()))          # Switch to another group
+        keys.append(Key([mod, "shift"], str(i), lazy.window.togroup(name)))   # Send current window to another group
+        keys.append(Key([mod, "control"], str(i), move_and_follow(name)))
+
 
 ##### STARTUP APPLICATIONS #####
+
+@hook.subscribe.screen_change
+def restart_on_randr(ev):
+    subprocess.call(["notify-send", "'screen change'"])
+    subprocess.call(["nitrogen", "--restore"])
+    libqtile.qtile.cmd_restart()
 
 @hook.subscribe.startup_once
 def start_once():

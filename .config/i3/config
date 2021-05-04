@@ -35,15 +35,17 @@ bindsym $mod+y border pixel 2
 bindsym $mod+n border normal
 
 # start a terminal
-bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec xfce4-terminal
 bindsym $mod+Shift+Return exec termite
 
 # kill focused window
 bindsym $mod+q kill
 
 # start program launcher
-bindsym $mod+shift+space exec --no-startup-id dmenu_run -i  -nb "$bg-color" -nf "$text-color" -sb "$text-color" -sf "$bg-color" -fn 'JetBrainsMono Nerd Font:pixelsize=20'
-bindsym $mod+space exec rofi -show drun -eh 2 -opacity 85 -bw 0 -font "JetBrainsMono Nerd Font 18" 
+bindsym $mod+shift+space exec --no-startup-id dmenu_run -i  -nb "$bg-color" -nf "$text-color" -sb "$text-color" -sf "$bg-color" -fn 'JetBrainsMono Nerd Font:pixelsize=12'
+
+bindsym $mod+Mod1+space exec --no-startup-id rofi -opacity 85 -modi file-browser -show file-browser -file-browser-dir "/home/mua/Desktop" -file-browser-path-sep "/"
+bindsym $mod+space exec rofi -modi drun -show drun -opacity 85 -show-icons -font "JetBrainsMono Nerd Font 12" 
 bindsym $mod+ctrl+space exec --no-startup-id xfce4-appfinder --disable-server
 bindsym $mod+ctrl+c exec --no-startup-id ./.dmenu/dmenu-edit-configs.sh
 
@@ -53,18 +55,19 @@ bindsym $mod+ctrl+c exec --no-startup-id ./.dmenu/dmenu-edit-configs.sh
 bindsym $mod+Ctrl+m exec pavucontrol
 bindsym $mod+F2 exec firefox
 bindsym $mod+Shift+F2 exec google-chrome-stable
-bindsym $mod+F3 exec dolphin
+bindsym $mod+F3 exec thunar
 bindsym $mod+Shift+F3 exec alacritty -e ranger
 bindsym $mod+F5 exec spotify
 bindsym $mod+Ctrl+d --release exec "killall dunst; exec notify-send 'restart dunst'"
 bindsym $mod+m exec alacritty -e neomutt
+bindsym $mod+w exec --no-startup-id bash -i -c "unsplash-wallpaper -c nature -f"
 
 # Print screen
 bindsym shift+Print exec --no-startup-id maim ~/Pictures/Screenshot_$(date +%F-%H%M%S).png && notify-send 'Screenshot saved in Pictures folder'
 bindsym Print --release exec --no-startup-id notify-send 'Select screenshot area' && maim --format=png -s /dev/stdout | xclip -selection clipboard -t image/png -i && notify-send 'Image copied to clipboard'
 bindsym $mod+Print --release exec --no-startup-id notify-send 'Select screenshot area' && maim -s ~/Pictures/Screenshot_$(date +%F-%H%M%S).png && notify-send 'Screenshot saved in Pictures folder'
 
-bindsym $mod+e exec --no-startup-id ~/.scripts/dmenuunicode
+bindsym $mod+e exec --no-startup-id rofi -show emoji -opacity 85 -modi emoji -show-icons
 bindsym $mod+c exec --no-startup-id ~/.scripts/ddspawn dropdowncalc
 
 # media player controls
@@ -159,11 +162,8 @@ bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
 assign [class="Slack"] $ws7
 assign [class="Skype"] $ws7
 assign [class="Microsoft Teams - Preview"] $ws7
-assign [class="spotify"] $ws9
-assign [class="mutt"] $ws8
-assign [class="Thunderbird"] $ws8
-assign [class="Evolution"] $ws8
-for_window [class="Spotify"] move to workspace $ws9
+assign [class="spotify"] $ws8
+for_window [class="Spotify"] move to workspace $ws8
 
 # Open specific applications in floating mode
 for_window [class="Yad"] floating enable
@@ -250,55 +250,22 @@ bindsym $mod+9 exec --no-startup-id ~/.scripts/blurlock
 
 # Autostart applications
 
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-#exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh && sleep 5
+exec --no-startup-id autorandr --change
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id dunst
-exec --no-startup-id /usr/lib/pam_kwallet_init
-exec --no-startup-id /usr/lib/polkit-kde-authentication-agent-1
-exec --no-startup-id nitrogen --restore; sleep 1; picom -b
 exec --no-startup-id nm-applet
 exec --no-startup-id xfce4-power-manager
-# exec --no-startup-id clipit
 exec --no-startup-id blueman-applet
 exec --no-startup-id slack
-exec --no-startup-id skypeforlinux
 exec --no-startup-id nextcloud
-exec --no-startup-id evolution
 exec --no-startup-id unclutter --exclude-root
 exec --no-startup-id /usr/bin/teams
 exec --no-startup-id xautolock -time 10 -locker ~/.scripts/blurlock
-exec --no-startup-id autorandr --change
 exec --no-startup-id pa-applet
 exec --no-startup-id setxkbmap -layout "us,it" -variant "altgr-intl,"
-#exec --no-startup-id zoom 
 
-# Start i3bar to display a workspace bar (plus the system information i3status if available)
 
-#bar {
-#	i3bar_command i3bar
-#	status_command i3blocks
-#	position top
-#
-#  tray_output primary
-#
-#  bindsym button4 nop
-#  bindsym button5 nop
-#	strip_workspace_numbers yes
-#
-#  colors {
-#    background $bg-color
-#    statusline $statusLine
-#    separator  $separator
-#
-#    focused_workspace  $border-active $bg-color $border-active
-#    active_workspace   $bg-color $bg-color $text-color
-#    inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
-#    binding_mode       #16a085 #2C2C2C #F9FAF9
-#    urgent_workspace   $bg-color $bg-color $urgent-bg-color
-#  }
-#}
-
-# hide/unhide i3status bar
 bindsym $mod+b bar mode toggle
 
 client.background       #2B2C2B

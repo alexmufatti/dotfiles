@@ -30,7 +30,7 @@ alert = #bd2c40
 [bar/top]
 monitor = ${env:MONITOR}
 width = 100%
-height = 27
+height = 24
 offset-x = 0
 offset-y = 0
 radius = 0
@@ -39,7 +39,7 @@ fixed-center = false
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-line-size = 3
+line-size = 2
 line-color = #f00
 
 border-size = 0
@@ -49,14 +49,14 @@ padding-left = 0
 padding-right = 2
 
 module-margin-left = 1
-module-margin-right = 2
+module-margin-right = 1
 
 font-0 = "JetBrainsMono Nerd Font:style=Regular:pixelsize=10:1"
 font-1 = "Noto Color Emoji:pixelsize=16:style=Regular:scale=10;2"
 
 modules-left = i3 xwindow
 modules-center = spotify
-modules-right = montalbetti xkeyboard battery cpu temperature pulseaudio-control date
+modules-right = vpn-openvpn-isrunning montalbetti xkeyboard battery cpu temperature pulseaudio-control date
 
 tray-position = right
 tray-padding = 2
@@ -249,6 +249,12 @@ tail = false
 interval = 300
 format = 🚲 <label>
 format-underline = #00aaff
+
+[module/vpn-openvpn-isrunning]
+type = custom/script
+exec = /usr/share/polybar/scripts/vpn-openvpn-isrunning.sh
+interval = 5
+format-underline = #0000ff
 
 [settings]
 screenchange-reload = true

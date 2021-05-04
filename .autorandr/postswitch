@@ -1,2 +1,2 @@
 #!/bin/bash
-~/.scripts/resize.sh
+unsplash-wallpaper -c nature -f

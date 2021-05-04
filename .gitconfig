@@ -2,7 +2,26 @@
 	excludesfile = /home/mua/.gitignore_global
 	editor = vim
 	autocrlf = input
-[user]
-	email = 
 [credential]
-	helper = store
+  helper = store
+[pager]
+       diff = diff-so-fancy | less --tabs=1,5 -RFX
+       show = diff-so-fancy | less --tabs=1,5 -RFX
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[cola]
+	spellcheck = false
+[filesystem "N/A|11.0.8|/dev/nvme0n1p4"]
+	timestampResolution = 9000 nanoseconds
+	minRacyThreshold = 13752 microseconds
+[pull]
+	rebase = false
+[filesystem "Oracle Corporation|11.0.10|/dev/nvme0n1p4"]
+	timestampResolution = 9000 nanoseconds
+	minRacyThreshold = 14119 microseconds
+[user]
+	name = Alex Mufatti
+	email = me@alexmufatti.it

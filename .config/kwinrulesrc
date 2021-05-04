@@ -1,51 +1,16 @@
-[$Version]
-update_info=kwinrules.upd:replace-placement-string-to-enum
-
 [1]
-Description=Application settings for evolution
-clientmachinematch=0
-desktop=9
+Description=Impostazioni dell'applicazione di slack
+desktop=7
 desktoprule=3
-wmclass=evolution
-wmclasscomplete=false
-wmclassmatch=1
-
-[2]
-Description=Window settings for skype
-clientmachinematch=0
-desktop=8
-desktoprule=3
-titlematch=0
-types=1
-windowrole=browser-window
-windowrolematch=1
-wmclass=skype
-wmclasscomplete=false
-wmclassmatch=1
-
-[3]
-Description=Window settings for slack
-clientmachinematch=0
-desktop=8
-desktoprule=3
-titlematch=0
-types=1
-windowrole=browser-window
-windowrolematch=1
 wmclass=slack
 wmclassmatch=1
 
-[4]
-Description=Window settings for thunderbird
-clientmachinematch=0
-desktop=9
+[2]
+Description=Teams
+desktop=7
 desktoprule=3
-types=1
-windowrole=3pane
-windowrolematch=1
-wmclass=mail thunderbird
-wmclasscomplete=true
+wmclass=microsoft teams - preview
 wmclassmatch=1
 
 [General]
-count=4
+count=2

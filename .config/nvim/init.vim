@@ -68,6 +68,9 @@ highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE gui
 map <F5> :setlocal spell! spelllang=it_it<CR>
 map <F6> :setlocal spell! spelllang=en_us<CR>
 
+let g:vim_markdown_frontmatter = 1
+let g:vim_markdown_follow_anchor = 1
+let g:vim_markdown_autowrite = 1
 
 " Specify a directory for plugins
 " - For Neovim: ~/.local/share/nvim/plugged
@@ -85,8 +88,44 @@ Plug 'tpope/vim-surround'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'tpope/vim-fugitive'
 Plug 'lifepillar/vim-solarized8'
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " Initialize plugin system
 call plug#end()
+
+" Transparent editing of gpg encrypted files.
+" By Wouter Hanegraaff
+augroup encrypted
+  au!
+
+  " First make sure nothing is written to ~/.viminfo while editing
+  " an encrypted file.
+  autocmd BufReadPre,FileReadPre *.gpg set viminfo=
+  " We don't want a swap file, as it writes unencrypted data to disk
+  autocmd BufReadPre,FileReadPre *.gpg set noswapfile
+
+  " Switch to binary mode to read the encrypted file
+  autocmd BufReadPre,FileReadPre *.gpg set bin
+  autocmd BufReadPre,FileReadPre *.gpg let ch_save = &ch|set ch=2
+  " (If you use tcsh, you may need to alter this line.)
+  autocmd BufReadPost,FileReadPost *.gpg '[,']!gpg --decrypt 2> /dev/null
+
+  " Switch to normal mode for editing
+  autocmd BufReadPost,FileReadPost *.gpg set nobin
+  autocmd BufReadPost,FileReadPost *.gpg let &ch = ch_save|unlet ch_save
+  autocmd BufReadPost,FileReadPost *.gpg execute ":doautocmd BufReadPost " . expand("%:r")
+
+  " Convert all text to encrypted text before writing
+  " (If you use tcsh, you may need to alter this line.)
+  autocmd BufWritePre,FileWritePre *.gpg '[,']!gpg --default-recipient-self -ae 2>/dev/null
+  " Undo the encryption so we are back in the normal text, directly
+  " after the file has been written.
+  autocmd BufWritePost,FileWritePost *.gpg u
+augroup end
+
+let g:NERDTreeGitStatusUseNerdFonts = 1
+let g:NERDTreeGitStatusShowIgnored = 1
 
 colorscheme solarized8

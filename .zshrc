@@ -12,9 +12,9 @@ fi
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 # ZSH_THEME="powerlevel10k/powerlevel10k"
-ZSH_THEME="robbyrussell"
+#ZSH_THEME="robbyrussell"
 
-plugins=(nmap colorize colored-man-pages git npm sublime common-aliases zsh-autosuggestions zsh-syntax-highlighting archlinux battery docker docker-compose)
+plugins=(aws nmap colorize colored-man-pages git npm sublime common-aliases zsh-autosuggestions zsh-syntax-highlighting archlinux battery docker docker-compose)
 
 # User configuration
 
@@ -28,21 +28,21 @@ export LANG=en_US.UTF-8
 # Preferred editor for local and remote sessions
 export EDITOR='vim'
 
-export TERMINAL=/usr/bin/alacritty
+export TERMINAL=/usr/bin/konsole
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
-export PATH="/usr/local/sbin:$PATH"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+#export PATH="/usr/local/sbin:$PATH"
+#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 unalias t
 
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias vim="nvim"
-alias cleanup="sudo pacman -Rns $(pacman -Qtdq)"
+alias cleanup="sudo pacman -Rns \$(pacman -Qtdq)"
 alias upgrade="sudo yay -Syu"
 alias psmem="ps aux | sort -nr -k 4 | head -10"
 alias pscpu="ps aux | sort -nr -k 3 | head -10"
@@ -56,13 +56,45 @@ alias yta-opus="youtube-dl --extract-audio --audio-format opus "
 alias yta-vorbis="youtube-dl --extract-audio --audio-format vorbis "
 alias yta-wav="youtube-dl --extract-audio --audio-format wav "
 alias ytv-best="youtube-dl -f bestvideo+bestaudio "
+alias cat="bat"
+alias ping="prettyping --nolegend"
+alias du="ncdu --color dark -rr -x --exclude .git --exclude node_modules"
+alias preview="fzf --preview 'bat --color \"always\" {}'"
+alias cp="cp -v -i"
+alias mv="mv -v -i"
 
+
+function pullall() {
+  for i in `ls -D`
+    do
+      if [[ -d "$i/.git" ]]
+      then
+        echo "----- $i -----"
+        cd $i
+        git pull
+        cd ..
+      fi
+    done
+}
+
+eval "$(gh completion -s zsh)"
 
 source /home/mua/.zshrc_private
 
-source /usr/share/nvm/init-nvm.sh
+# source /usr/share/nvm/init-nvm.sh
+
+source /usr/share/fzf/key-bindings.zsh
+source /usr/share/fzf/completion.zsh
+
+
+export FZF_DEFAULT_OPTS="--bind='ctrl-o:execute(code {})+abort'"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
 export PATH="$HOME/.cargo/bin:$PATH"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+
+eval "$(starship init zsh)"
