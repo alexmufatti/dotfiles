@@ -1,0 +1,21 @@
+#!/bin/sh
+
+# Toggle floating dropdown terminal in i3, or start if non-existing.
+# $1 is	the script run in the terminal.
+# All other args are terminal settings.
+# Terminal names are in dropdown_* to allow easily setting i3 settings.
+
+PATH=$PATH:~/.scripts
+SHELL=/bin/bash
+[ -z "$1" ] && exit
+
+script=$1
+shift
+if xwininfo -tree -root | grep "(\"$script\" ";
+then
+	echo "Window detected."
+	i3 "[instance=\"$script\"] scratchpad show; [instance=\"$script\"] move position center"
+else
+	echo "Window not detected... spawning."
+	i3 "exec --no-startup-id gnome-terminal -t dropdown_$script  -e ~/.scripts/$script"
+fi

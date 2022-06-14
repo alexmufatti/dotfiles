@@ -1,0 +1,275 @@
+;==========================================================
+;
+;
+;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
+;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
+;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
+;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
+;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
+;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+;
+;
+;   To learn more about how to configure Polybar
+;   go to https://github.com/polybar/polybar
+;
+;   The README contains a lot of information
+;
+;==========================================================
+
+[colors]
+;background = ${xrdb:color0:#222}
+background = #2f343f
+background-alt = #444
+;foreground = ${xrdb:color7:#222}
+foreground = #f3f4f5
+foreground-alt = #555
+primary = #ffb52a
+secondary = #e60053
+alert = #bd2c40
+
+[bar/common]
+monitor = ${env:MONITOR}
+width = 100%
+height = 24
+offset-x = 0
+offset-y = 0
+radius = 0
+fixed-center = false
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 2
+line-color = #f00
+
+border-size = 0
+border-color = #00000000
+
+padding-left = 0
+padding-right = 2
+
+module-margin-left = 1
+module-margin-right = 1
+
+font-0 = "UbuntuMono Nerd Font:style=Regular:pixelsize=10:1"
+font-1 = "Noto Color Emoji:pixelsize=16:style=Regular:scale=10:2"
+font-2 = Weather Icons:size=10:1
+
+modules-left = i3 xwindow
+modules-center = spotify
+modules-right = openweathermap-fullfeatured vpn-openvpn-isrunning montalbetti pulseaudio-control xkeyboard battery cpu temperature date
+
+override-redirect = false
+
+scroll-up = i3.next
+scroll-down = i3.prev
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+[bar/top]
+inherit = bar/common
+tray-position = right
+tray-padding = 2
+
+[bar/secondary]
+inherit = bar/common
+tray-position = none
+
+
+[module/cpu]
+type = internal/cpu
+format-underline = #f50a4d
+label = 💻 %percentage%%
+interval = 2
+
+[module/pulseaudio-control]
+type = custom/script
+tail = true
+label=%output%
+format-underline = #00aa7f
+
+exec = ~/.config/polybar/pulseaudio-control.bash listen
+click-right = exec pavucontrol &
+click-left = ~/.config/polybar/pulseaudio-control.bash togmute
+click-middle = ~/.config/polybar/pulseaudio-control.bash next-sink
+scroll-up = ~/.config/polybar/pulseaudio-control.bash up
+scroll-down = ~/.config/polybar/pulseaudio-control.bash down
+label-padding = 0
+label-foreground = ${colors.foreground}
+
+[module/spotify]
+type = custom/script
+interval = 5
+format-prefix = " "
+format = <label>
+exec = python /home/mua/.scripts/spotify_status.py -f '{artist}: {song}'
+format-underline = #1db954
+
+[module/openweathermap-fullfeatured]
+type = custom/script
+exec = ~/.config/polybar/weather.sh
+interval = 600
+format-underline = #f7dc6f 
+
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:50:...%
+
+[module/xkeyboard]
+type = internal/xkeyboard
+blacklist-0 = num lock
+
+format-prefix-font=1
+format-prefix = "⌨ "
+format-prefix-foreground = ${colors.foreground-alt}
+format-prefix-underline = #ffaaff
+label-layout = %layout%
+label-layout-underline = #ffaaff
+
+label-indicator-padding = 0
+label-indicator-margin = 0
+label-indicator-background = ${colors.secondary}
+label-indicator-underline = #ffaaff
+
+[module/pipewire]
+type = custom/script
+label = "%output%"
+format-underline = #00aa7f
+label-padding = 0
+label-foreground = ${colors.foreground}
+interval = 2.0
+exec = ~/.config/polybar/pipewire.sh
+click-right = exec pavucontrol &
+click-left = ~/.config/polybar/pipewire.sh mute &
+scroll-up = ~/.config/polybar/pipewire.sh up &
+scroll-down = ~/.config/polybar/pipewire.sh down &
+
+
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+wrapping-scroll = false
+enable-scroll = false
+
+; Only show workspaces on the same output as the bar
+pin-workspaces = true
+
+label-mode-padding = 2
+label-mode-foreground = #000
+label-mode-background = ${colors.primary}
+
+; focused = Active workspace on focused monitor
+label-focused = %index%
+label-focused-background = ${colors.background-alt}
+label-focused-padding = 2
+label-focused-underline = ${colors.primary}
+; unfocused = Inactive workspace on any monitor
+label-unfocused = %index%
+label-unfocused-padding = 2
+
+; visible = Active workspace on unfocused monitor
+label-visible = %index%
+label-visible-background = ${self.label-focused-background}
+label-visible-padding = ${self.label-focused-padding}
+label-visible-underline = ${self.label-focused-underline}
+
+; urgent = Workspace with urgency hint set
+label-urgent = %index%
+label-urgent-background = ${colors.alert}
+label-urgent-padding = 2
+
+[module/date]
+type = internal/date
+interval = 5
+
+date =
+date-alt = " %Y-%m-%d"
+
+time = %H:%M
+time-alt = %H:%M
+
+format-prefix = 🕒
+format-prefix-foreground = ${colors.foreground-alt}
+format-underline = #0a6cf5
+label = %date% %time%
+
+[module/battery]
+type = internal/battery
+battery = BAT0
+adapter = AC
+full-at = 95
+; Available tags:
+;   <label-charging> (default)
+;   <bar-capacity>
+;   <ramp-capacity>
+;   <animation-charging>
+format-charging = <label-charging>
+format-charging-underline = #ffb52a
+; Available tags:
+;   <label-discharging> (default)
+;   <bar-capacity>
+;   <ramp-capacity>
+;   <animation-discharging>
+format-discharging = <label-discharging>
+format-discharging-underline = ${self.format-charging-underline}
+; Available tokens:
+;   %percentage% (default) - is set to 100 if full-at is reached
+;   %percentage_raw%
+;   %time%
+;   %consumption% (shows current charge rate in watts)
+label-charging = 🔌 %percentage%%
+
+; Available tokens:
+;   %percentage% (default) - is set to 100 if full-at is reached
+;   %percentage_raw%
+;   %time%
+;   %consumption% (shows current discharge rate in watts)
+label-discharging = ⏬ %percentage%%
+
+format-full = ⚡ Full
+format-full-foreground = ${colors.foreground-alt}
+format-full-underline = ${self.format-charging-underline}
+
+[module/temperature]
+type = internal/temperature
+thermal-zone = 0
+warn-temperature = 60
+
+format = 🌡 <label>
+format-warn = <label-warn>
+format-underline = #ff5500
+format-warn-underline = #f50a4d
+label = %temperature-c%
+label-warn = %temperature-c%
+label-warn-foreground = ${colors.secondary}
+
+[module/montalbetti]
+type = custom/script
+exec = $HOME/.scripts/montalbetti-polybar.sh 
+exec-if = wget --spider --quiet https://www.montalbettisrl.com
+tail = false
+interval = 300
+format = 🚲 <label>
+format-underline = #00aaff
+
+[module/vpn-openvpn-isrunning]
+type = custom/script
+exec = $HOME/.config/polybar/vpn.sh
+interval = 5
+format-underline = #0000ff
+
+[settings]
+screenchange-reload = true
+;compositing-background = xor
+;compositing-background = screen
+;compositing-foreground = source
+;compositing-border = over
+;pseudo-transparency = false
+
+[global/wm]
+margin-top = 5
+margin-bottom = 5
+
+; vim:ft=dosini
