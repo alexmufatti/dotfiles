@@ -25,7 +25,7 @@ SINK_BLACKLIST=(
 # Maps PulseAudio sink names to human-readable names
 declare -A SINK_NICKNAMES
 SINK_NICKNAMES["alsa_output.usb-Generic_ThinkPad_Dock_USB_Audio-00.analog-stereo"]="Docking"
-SINK_NICKNAMES["alsa_output.pci-0000_00_1f.3.analog-stereo"]="Headphones"
+SINK_NICKNAMES["alsa_output.pci-0000_00_1f.3.analog-stereo"]="Speakers"
 SINK_NICKNAMES["bluez_sink.4C_87_5D_08_FF_27.a2dp_sink"]="Bode QC35"
 SINK_NICKNAMES["alsa_output.usb-Plantronics_Plantronics_Blackwire_5220_Series_73B2FDB576A4496EA55D8652F10F6AD2-00.analog-stereo"]="Plantronics"
 

@@ -29,8 +29,10 @@ font xft:UbuntuMono Nord Font 16
 # Use Mouse+$mod to drag floating windows
 floating_modifier $mod
 
+set $terminal 'alacritty'
+
 # start a terminal
-bindsym $mod+Return exec $TERMINAL
+bindsym $mod+Return exec $terminal
 
 # kill focused window
 bindsym $mod+q kill
@@ -54,9 +56,9 @@ bindsym $mod+Ctrl+m exec pavucontrol
 bindsym $mod+F2 exec firefox
 bindsym $mod+Shift+F2 exec google-chrome-stable
 bindsym $mod+F3 exec nautilus
-bindsym $mod+Shift+F3 exec $TERMINAL -e ranger
+bindsym $mod+Shift+F3 exec $terminal -e ranger
 bindsym $mod+Ctrl+n --release exec ~/.scripts/dunst-toggle.sh
-bindsym $mod+m exec $TERMINAL -e neomutt
+bindsym $mod+m exec $terminal -e neomutt
 
 # Print screen
 bindsym shift+Print exec --no-startup-id maim ~/Pictures/Screenshot_$(date +%F-%H%M%S).png && notify-send 'Screenshot saved in Pictures folder'
@@ -116,14 +118,15 @@ bindsym $mod+a focus parent
 # to display names or symbols instead of plain workspace numbers you can use
 # something like: set $ws1 1:mail
 #                 set $ws2 2:
-set $ws1 1: 1 
-set $ws2 2: 2 
-set $ws3 3: 3 
-set $ws4 4: 4 
-set $ws5 5: 5 
-set $ws6 6: 6 
-set $ws7 7: 7 
-set $ws8 8: 8 
+set $ws1 1: 1
+set $ws2 2: 2
+set $ws3 3: 3
+set $ws4 4: 4
+set $ws5 5: 5
+set $ws6 6: 6
+set $ws7 7: 7
+set $ws8 8: 8
+set $ws9 9: 9
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -134,6 +137,7 @@ bindsym $mod+5 workspace $ws5
 bindsym $mod+6 workspace $ws6
 bindsym $mod+7 workspace $ws7
 bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
 
 # Move focused container to workspace
 bindsym $mod+Ctrl+1 move container to workspace $ws1
@@ -144,6 +148,7 @@ bindsym $mod+Ctrl+5 move container to workspace $ws5
 bindsym $mod+Ctrl+6 move container to workspace $ws6
 bindsym $mod+Ctrl+7 move container to workspace $ws7
 bindsym $mod+Ctrl+8 move container to workspace $ws8
+bindsym $mod+Ctrl+9 move container to workspace $ws9
 
 # Move to workspace with focused container
 bindsym $mod+Shift+1 move container to workspace $ws1; workspace $ws1
@@ -154,14 +159,13 @@ bindsym $mod+Shift+5 move container to workspace $ws5; workspace $ws5
 bindsym $mod+Shift+6 move container to workspace $ws6; workspace $ws6
 bindsym $mod+Shift+7 move container to workspace $ws7; workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9; workspace $ws9
 
 # Open applications on specific workspaces
 assign [class="Slack"] $ws7
 assign [class="Skype"] $ws7
-assign [class="Microsoft Teams - Preview"] $ws7
-assign [class="spotify"] $ws8
-assign [class="Evolution"] $ws8
-for_window [class="Spotify"] move to workspace $ws8
+assign [class="Microsoft Teams - Preview"] $ws9
+assign [class="Thunderbird"] $ws8
 
 # Open specific applications in floating mode
 for_window [class="Yad"] floating enable
@@ -235,15 +239,11 @@ bindsym $mod+Mod1+Down resize grow height 5 px or 5 ppt
 bindsym $mod+Mod1+Up resize shrink height 5 px or 5 ppt
 bindsym $mod+Mod1+Right resize grow width 5 px or 5 ppt
 
-# Lock screen
-bindsym $mod+9 exec --no-startup-id ~/.scripts/blurlock
-
 # Autostart applications
 
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh && sleep 5
 exec --no-startup-id dex -a
 #exec --no-startup-id autorandr --change
-exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+#exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id dunst
 #exec --no-startup-id nm-applet
 # exec --no-startup-id xfce4-power-manager
@@ -254,7 +254,7 @@ exec --no-startup-id unclutter --exclude-root
 exec --no-startup-id xautolock -time 10 -locker ~/.scripts/blurlock
 #exec --no-startup-id pa-applet
 exec --no-startup-id setxkbmap -layout "us,it" -variant "altgr-intl,"
-exec --no-startup-id sleep 2 && nitrogen --restore
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh && sleep 5
 
 client.background       #2B2C2B
 
