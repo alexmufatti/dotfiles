@@ -1,6 +1,6 @@
 #!/bin/bash
 full_text="No data!"
-d=$(curl --silent https://www.montalbettisrl.com/restapi.php | jq -r ".date")
+d=$(curl --silent --connection-timeout=2  https://www.montalbettisrl.com/restapi.php | jq -r ".date")
 full_text="No data!"
 if [ -n "$d" ]
 then

@@ -91,6 +91,7 @@ Plug 'lifepillar/vim-solarized8'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+
 " Initialize plugin system
 call plug#end()
 

@@ -35,7 +35,6 @@ export EDITOR='vim'
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
 #export PATH="/usr/local/sbin:$PATH"
-#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 unalias t
 
@@ -59,7 +58,7 @@ alias du="ncdu --color dark -rr -x --exclude .git --exclude node_modules"
 alias preview="fzf --preview 'bat --color \"always\" {}'"
 alias cp="cp -v -i"
 alias mv="mv -v -i"
-
+alias sudo="sudo "
 
 function pullall() {
   for i in `ls -D`
@@ -78,8 +77,6 @@ eval "$(gh completion -s zsh)"
 
 source /home/mua/.zshrc_private
 
-# source /usr/share/nvm/init-nvm.sh
-
 source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh
 
@@ -91,9 +88,6 @@ export PATH="$PATH:$HOME/.rvm/bin"
 
 export PATH="$HOME/.cargo/bin:$PATH"
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-
 eval "$(starship init zsh)"
 eval "$(direnv hook zsh)"
 
@@ -102,3 +96,7 @@ complete -o nospace -C /usr/bin/terraform terraform
 
 export PATH="$PATH:/home/mua/.dotnet/tools"
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

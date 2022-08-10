@@ -17,5 +17,5 @@ then
 	i3 "[instance=\"$script\"] scratchpad show; [instance=\"$script\"] move position center"
 else
 	echo "Window not detected... spawning."
-	i3 "exec --no-startup-id gnome-terminal -t dropdown_$script  -e ~/.scripts/$script"
+	i3 "exec --no-startup-id alacritty -t dropdown_$script  -e ~/.scripts/$script"
 fi

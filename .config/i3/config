@@ -55,7 +55,7 @@ bindsym XF86MonBrightnessDown exec xbacklight -10 && notify-send "Brightness $(x
 bindsym $mod+Ctrl+m exec pavucontrol
 bindsym $mod+F2 exec firefox
 bindsym $mod+Shift+F2 exec google-chrome-stable
-bindsym $mod+F3 exec nautilus
+bindsym $mod+F3 exec thunar
 bindsym $mod+Shift+F3 exec $terminal -e ranger
 bindsym $mod+Ctrl+n --release exec ~/.scripts/dunst-toggle.sh
 bindsym $mod+m exec $terminal -e neomutt
