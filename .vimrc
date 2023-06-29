@@ -40,6 +40,8 @@ set shiftwidth=2
 set expandtab
 set incsearch
 set noshowmode
+set backspace=indent,eol,start
+
 augroup filetypedetect
   " Mail
   autocmd BufRead,BufNewFile *mutt-* setfiletype mail
@@ -76,7 +78,6 @@ call plug#begin('~/.vim/plugged')
 
 " On-demand loading
 
-Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'scrooloose/nerdtree'
 Plug '/usr/local/opt/fzf'
 Plug 'itchyny/lightline.vim'
@@ -88,12 +89,11 @@ Plug 'tomasiser/vim-code-dark'
 Plug 'lifepillar/vim-solarized8'
 Plug 'xolox/vim-notes'
 Plug 'xolox/vim-misc'
+Plug 'dracula/vim', { 'as': 'dracula' }
 
 " Initialize plugin system
 call plug#end()
 
-colorscheme solarized8
-
-
 nnoremap <F3> :!date <CR>P
 inoremap <F3> <C-R>=strftime("%c")<CR>
+colorscheme dracula

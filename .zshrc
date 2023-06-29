@@ -1,50 +1,96 @@
-# zmodload zsh/zprof
+# If you come from bash you might have to change your $PATH.
+export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$PATH
+
 # Path to your oh-my-zsh installation.
-export ZSH=/home/mua/.oh-my-zsh
+export ZSH="$HOME/.oh-my-zsh"
 
-if [[ $TERM == xterm-termite ]]; then
-  . /etc/profile.d/vte.sh
-  __vte_osc7
-fi
+ZSH_THEME="dracula"
+DEFAULT_USER="mua"
+export FZF_BASE=/opt/Homebrew/opt/fzf
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-# ZSH_THEME="powerlevel10k/powerlevel10k"
-# ZSH_THEME="starship"
 
-plugins=(aws nmap colorize colored-man-pages git npm sublime common-aliases zsh-autosuggestions zsh-syntax-highlighting archlinux battery docker docker-compose fzf kubectl)
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-# User configuration
-
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/home/mua/bin:/home/mua/.scripts"
+# Which plugins would you like to load?
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(aws colorize colored-man-pages sublime common-aliases zsh-autosuggestions zsh-syntax-highlighting macos fzf zsh-z)
 
 source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
 
-# Preferred editor for local and remote sessions
 export EDITOR='vim'
 
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
+source $HOME/.zshrc_private
 
-# ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
+export PATH="/$HOME/bin:/opt/homebrew/bin:$PATH"
+source $(brew --prefix)/opt/fzf/shell/key-bindings.zsh
+source $(brew --prefix)/opt/fzf/shell/completion.zsh
 
-#export PATH="/usr/local/sbin:$PATH"
+##### nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-unalias t
+# place this after nvm initialization!
+autoload -U add-zsh-hook
+load-nvmrc() {
+  local nvmrc_path="$(nvm_find_nvmrc)"
 
-alias dotfiles='/usr/bin/git --git-dir=/home/mua/.dotfiles/ --work-tree=/home/mua'
-alias vim="nvim"
-alias cleanup="sudo pacman -Rns \$(pacman -Qtdq)"
-alias upgrade="sudo yay -Syu"
-alias psmem="ps aux | sort -nr -k 4 | head -10"
-alias pscpu="ps aux | sort -nr -k 3 | head -10"
-alias jctl="journalctl -p 3 -xb"
+  if [ -n "$nvmrc_path" ]; then
+    local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+
+    if [ "$nvmrc_node_version" = "N/A" ]; then
+      nvm install
+    elif [ "$nvmrc_node_version" != "$(nvm version)" ]; then
+      nvm use
+    fi
+  elif [ -n "$(PWD=$OLDPWD nvm_find_nvmrc)" ] && [ "$(nvm version)" != "$(nvm version default)" ]; then
+    echo "Reverting to nvm default version"
+    nvm use default
+  fi
+}
+add-zsh-hook chpwd load-nvmrc
+load-nvmrc
+
+
+##### direnv
+eval "$(direnv hook zsh)"
+
+##### jenv
+export PATH="$HOME/.jenv/bin:$PATH"
+  eval "$(jenv init -)"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+##### jenv
+# eval "$(starship init zsh)"
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+export PATH="/opt/homebrew/sbin:$PATH"
+
+##### homebrew
+if [ -d "/opt/homebrew/opt/ruby/bin" ]; then
+  export PATH=/opt/homebrew/opt/ruby/bin:$PATH
+  export PATH=`gem environment gemdir`/bin:$PATH
+fi
+
+##### exa
+TREE_IGNORE="cache|log|logs|node_modules|vendor"
+alias ls=' exa --group-directories-first'
+alias la=' ls -a'
+alias ll=' ls --git -l'
+alias lt=' ls --tree -D -L 2 -I ${TREE_IGNORE}'
+alias ltt=' ls --tree -D -L 3 -I ${TREE_IGNORE}'
+alias lttt=' ls --tree -D -L 4 -I ${TREE_IGNORE}'
+alias ltttt=' ls --tree -D -L 5 -I ${TREE_IGNORE}'
 alias yta-aac="youtube-dl --extract-audio --audio-format aac "
 alias yta-best="youtube-dl --extract-audio --audio-format best "
 alias yta-flac="youtube-dl --extract-audio --audio-format flac "
@@ -54,49 +100,6 @@ alias yta-opus="youtube-dl --extract-audio --audio-format opus "
 alias yta-vorbis="youtube-dl --extract-audio --audio-format vorbis "
 alias yta-wav="youtube-dl --extract-audio --audio-format wav "
 alias ytv-best="youtube-dl -f bestvideo+bestaudio "
-alias du="ncdu --color dark -rr -x --exclude .git --exclude node_modules"
-alias preview="fzf --preview 'bat --color \"always\" {}'"
-alias cp="cp -v -i"
-alias mv="mv -v -i"
-alias sudo="sudo "
-
-function pullall() {
-  for i in `ls -D`
-    do
-      if [[ -d "$i/.git" ]]
-      then
-        echo "----- $i -----"
-        cd $i
-        git pull
-        cd ..
-      fi
-    done
-}
-
-eval "$(gh completion -s zsh)"
-
-source /home/mua/.zshrc_private
-
-source /usr/share/fzf/key-bindings.zsh
-source /usr/share/fzf/completion.zsh
-
-
-export FZF_DEFAULT_OPTS="--bind='ctrl-o:execute(code {})+abort'"
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
-
-export PATH="$HOME/.cargo/bin:$PATH"
-
-eval "$(starship init zsh)"
-eval "$(direnv hook zsh)"
-
-autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /usr/bin/terraform terraform
-
-export PATH="$PATH:/home/mua/.dotnet/tools"
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+alias vim="nvim"
+alias vi="nvim"
+alias oldvim="vim"

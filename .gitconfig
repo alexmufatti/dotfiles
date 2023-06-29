@@ -1,5 +1,14 @@
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[commit]
+	gpgsign = false
 [core]
 	excludesfile = /home/mua/.gitignore_global
 	editor = vim
 	autocrlf = input
-
+	pager = cat
+[pager]
+	diff = less -FX

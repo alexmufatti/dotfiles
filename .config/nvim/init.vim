@@ -20,6 +20,7 @@ endif
 
 filetype plugin indent on
 
+
 " The following are commented out as they cause vim to behave a lot
 " differently from regular Vi. They are highly recommended though.
 set showcmd		" Show (partial) command in status line.
@@ -39,6 +40,8 @@ set shiftwidth=2
 set expandtab
 set incsearch
 set noshowmode
+set backspace=indent,eol,start
+
 augroup filetypedetect
   " Mail
   autocmd BufRead,BufNewFile *mutt-* setfiletype mail
@@ -127,8 +130,6 @@ augroup end
 
 let g:NERDTreeGitStatusUseNerdFonts = 1
 let g:NERDTreeGitStatusShowIgnored = 1
-
-colorscheme solarized8
-
-:nnoremap <F3> :r !date <CR>P
-:inoremap <F3> <C-R> :r !date <CR>
+nnoremap <F3> :!date <CR>P
+inoremap <F3> <C-R>=strftime("%c")<CR>
+colorscheme dracula
