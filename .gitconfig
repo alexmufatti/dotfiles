@@ -6,9 +6,47 @@
 [commit]
 	gpgsign = false
 [core]
-	excludesfile = /home/mua/.gitignore_global
-	editor = vim
+	excludesfile = /Users/mua/.gitignore_global
+	editor = nvim
 	autocrlf = input
-	pager = cat
-[pager]
-	diff = less -FX
+  	pager = delta
+	hooksPath = /Users/mua/.config/git/hooks
+[interactive]
+  diffFilter = delta --color-only
+[delta]
+  navigate = true
+  dark = true
+[merge]
+  conflictstyle = zdiff3
+[includeIf "gitdir:~/Projects/namirial/"]
+  path = .gitconfig-namirial
+[includeIf "gitdir:~/Projects/codeandrun/"]
+  path = .gitconfig-personal
+[alias]
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+[color]
+	ui = auto
+[gpg]
+  program = /opt/homebrew/bin/gpg
+[alias]
+  alias = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort
+  undo = reset --soft HEAD^
+  ca   = commit --amend
+  cm = !gitmoji -c
+  l = log --graph --all --pretty=format:'%C(yellow)%h%C(cyan)%d%Creset %s %C(white)- %an, %ar%Creset'
+  lb = log --color --graph --pretty=format:'%C(bold white)%h%Creset -%C(bold green)%d%Creset %s %C(bold green)(%cr)%Creset %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  
+
+[init]
+	defaultBranch = main
+[fetch]
+	prune = true
+	pruneTags = true
+[rerere]
+	enabled = true
+[branch]
+	sort = -committerdate
+[tag]
+	sort = version:refname
+[push]
+	autoSetupRemote = true

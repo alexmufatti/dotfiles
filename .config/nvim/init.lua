@@ -1,0 +1,8 @@
+require('plugins')
+require('file-explorer')
+require('custom-keys')
+require('statusbar')
+require('colorscheme')
+require('option')
+require('tree-sitter')
+require('nvim-cmp')
