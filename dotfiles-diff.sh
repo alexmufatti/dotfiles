@@ -3,14 +3,18 @@
 # and which home files don't exist in the repo yet.
 set -euo pipefail
 
-REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$REPO_DIR"
+
+SELF="$(basename "${BASH_SOURCE[0]}")"
 
 echo "Repo: $REPO_DIR"
 echo "Home: $HOME"
 echo
 
 git ls-files -z | while IFS= read -r -d '' file; do
+  [[ "$file" == "$SELF" ]] && continue
+
   home_file="$HOME/$file"
 
   if [[ ! -e "$home_file" ]]; then
