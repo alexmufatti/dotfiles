@@ -93,6 +93,15 @@ alias brew_update="brew update && brew upgrade && brew upgrade --cask --greedy -
 alias claude-work='CLAUDE_CONFIG_DIR=~/.claude command claude'
 alias claude-personal='CLAUDE_CONFIG_DIR=~/.claude-personal command claude'
 
+# tmux
+unalias t
+alias tls='tmux list-sessions'
+alias tn='tmux new-session -s'
+alias ta='tmux attach-session -t'
+alias tk='tmux kill-session -t'
+alias tka='tmux kill-server'
+alias tw='tmux choose-tree'
+
 fpullall() {
   local dir
   for dir in */; do
@@ -101,6 +110,14 @@ fpullall() {
       git -C "$dir" pull
     fi
   done
+}
+
+t() {
+  if [[ -n "$1" ]]; then
+    tmux new-session -A -s "$1"
+  else
+    tmux new-session -A -s main
+  fi
 }
 
 mkcd () {
